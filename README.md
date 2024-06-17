@@ -1,4 +1,4 @@
-# Acebook
+# ToonTogether
 
 This is a java/springboot project to be developed on.  There's a video tour of the application [here](https://youtu.be/L1Zi9WOJ6xg) but you should read through these docs first.
 
@@ -17,7 +17,7 @@ Below, you'll find specific learning objectives for each tool.
 
 - Fork and clone this repository to your machine
 - Open the codebase in an IDE like InteliJ or VSCode
-- Create a new Postgres database called `acebook_springboot_development`
+- Create a new Postgres database called `toon_together_dev`
 - Install Maven `brew install maven`
 - Build the app and start the server, using the Maven command `mvn spring-boot:run`
 > The database migrations will run automatically at this point
