@@ -51,56 +51,8 @@ Your Mac might refuse to open Chromedriver because it's from an unidentified dev
 This app already has a few basic features
 * A user can sign up at `/users/new`
 * A signed up user can sign in at `/login`
-* A signed in user can create posts at `/posts`
 * A signed in user can sign out at `/logout`
 
 ## Design
 
 This app uses the repository pattern. The repository pattern separates the business logic of models from the responsibility of connecting to the database and making queries. Take a look in the `src/main/java/repository` and you'll find `PostRepository` which generates and executes queries to Create, Read, Update and Delete (CRUD) posts. Depending on what you've built in the past, it might or might not feel familiar to you.
-
-## Initial learning goals
-
-You don't need an in-depth knowledge of each dependency listed above. Once you can tick off these learning goals,
-you're ready to dive in.  It's assumed that you can already TDD the Takeaway Challenge, or something of similar
-complexity, in Java. It's OK if you need to pause here with Acebook and learn how to do that now :)
-
-### Maven
-- [ ] I can explain what pom.xml is for
-- [ ] I can start the app using Maven
-
-### Thymeleaf
-- [ ] I can explain the code in `posts/index.html`
-- [ ] I can plan a new template that could be used for editing a post
-
-### Flyway
-- [ ] I can explain what a migration is
-- [ ] I can explain when migrations are run
-- [ ] I can explain the code in the two migration files in this directory `/db/migration/`
-- [ ] I can explain the naming convention for flyway migration files
-
-### Selenium
-- [ ] I can explain the code in `SignUpTest.java`
-- [ ] I can write a new feature test for unsuccessful sign up
-
-### Faker
-- [ ] I can explain what Faker does
-- [ ] I can explain why it's useful
-
-### JUnit4
-- [ ] I can explain the code in `PostTest.java`
-- [ ] I could add more test cases to `PostTest.java`
-
-### The repository pattern
-- [ ] I can explain the repository pattern
-
-### SpringBoot
-- [ ] I can diagram how this SpringBoot application handles `GET "/posts"`
-
-### Spring Security
-- [ ] I can explain how this app is secured
-
-## Resources
-
-
-* [Some great videos on Spring Security](https://www.youtube.com/watch?v=sm-8qfMWEV8&list=PLqq-6Pq4lTTYTEooakHchTGglSvkZAjnE).  Don't watch them all, but do watch the first couple if you want an overview.
-
