@@ -5,14 +5,17 @@
         <meta charset="UTF-8"/>
         <title>Acebook</title>
         <link rel="stylesheet" href="/main.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
+    <div th:replace="layout :: header"></div>
 
-    <h1>Posts</h1>
+    <h1>Welcome</h1>
 
     <div sec:authorize="isAuthenticated()">
-        Signed in as <span sec:authentication="name"></span>
+        Hello <span sec:authentication="name"></span>
     </div>
 
+    <div th:replace="layout :: footer"></div>
     </body>
 </html>
