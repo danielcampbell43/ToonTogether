@@ -20,39 +20,18 @@ import java.util.Optional;
 public class UserProfileController {
     @Autowired
     PlaylistRepository playlistRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    AuthoritiesRepository authoritiesRepository;
+
 
     @RequestMapping(value = "/myprofile")
     public String myProfile(Model model, Authentication authentication) {
-        if (authentication == null) {
-            // Handle scenario where userDetails is null (authentication failed or not authenticated)
-            return "redirect:/login"; // Example: Redirect to login page
+        if (authentication != null) {
+            String username = authentication.getName();
+            Iterable<Playlist> playlists = playlistRepository.findByUserUsername(username);
+            model.addAttribute("playlists", playlists);
+        } else {
+            model.addAttribute("playlists", null);
         }
-        String user = authentication.getName();
-        Iterable<Playlist> playlists = playlistRepository.findByUser(user);
-//        Optional<User> user = userRepository.findByUsername(userDetails.getUsername());
-//        Iterable<Playlist> playlists = playlistRepository.findByUser(user);
-        model.addAttribute("playlists", playlists);
-        return "/my-profile";
+        return "my-profile";
     }
+
 }
-
-
-
-//@Controller
-//public class UserProfileController {
-//    @Autowired PlaylistRepository playlistRepository;
-//    @Autowired UserRepository userRepository;
-//
-//    @RequestMapping(value = "/myprofile")
-//    public String myProfile(Model model, Authentication authentication) {
-//        // Fetch playlists for the logged-in user
-//        String username = authentication.getName();
-//        Iterable<Playlist> playlists = playlistRepository.findByUserUsername(username);
-//        model.addAttribute("playlists", playlists);
-//        return "my-profile";
-//    }
-//}
