@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PlaylistRepository extends CrudRepository<Playlist, Integer> {
-    List<Playlist> findByUserUsername(String username);
+    List<Playlist> findByOwner(User user);
     Playlist findById(int id);
     void deleteById(int id);
 }
