@@ -3,6 +3,7 @@ package com.makersacademy.toon_together.model;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "playlists")
+@NoArgsConstructor
 public class Playlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

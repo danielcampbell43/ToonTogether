@@ -16,6 +16,10 @@
         Hello <span sec:authentication="name"></span>
     </div>
 
+    <ul th:each="playlist: ${playlists}">
+        <li th:text="${playlist.name}" />
+    </ul>
+
     <div th:replace="layout :: footer"></div>
     </body>
 </html>
