@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -37,5 +35,13 @@ public class PlaylistController {
         playlistRepository.save(playlist);
         return new RedirectView("/playlists");
 
+    }
+
+    @DeleteMapping("/playlists")
+    public RedirectView delete(@RequestParam int id) {
+        System.out.println("hello");
+        System.out.println(id);
+        playlistRepository.deleteById(id);
+        return new RedirectView("/playlists");
     }
 }

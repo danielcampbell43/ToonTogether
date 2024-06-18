@@ -23,6 +23,9 @@
 
     <ul th:each="playlist: ${playlists}">
         <li th:text="${playlist.name}" />
+        <form th:action="@{/playlists(id=${playlist.id})}" th:method="delete">
+            <button type="submit">Delete</button>
+        </form>
     </ul>
 
     <div th:replace="layout :: footer"></div>
