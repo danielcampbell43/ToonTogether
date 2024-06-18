@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface PlaylistRepository extends CrudRepository<Playlist, Integer> {
     List<Playlist> findByUserUsername(String username);
+    Playlist findById(int id);
+    void deleteById(int id);
 }
