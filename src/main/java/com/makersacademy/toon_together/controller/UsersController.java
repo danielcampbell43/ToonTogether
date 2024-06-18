@@ -1,9 +1,9 @@
-package com.makersacademy.acebook.controller;
+package com.makersacademy.toon_together.controller;
 
-import com.makersacademy.acebook.model.Authority;
-import com.makersacademy.acebook.model.User;
-import com.makersacademy.acebook.repository.AuthoritiesRepository;
-import com.makersacademy.acebook.repository.UserRepository;
+import com.makersacademy.toon_together.model.Authority;
+import com.makersacademy.toon_together.model.User;
+import com.makersacademy.toon_together.repository.AuthoritiesRepository;
+import com.makersacademy.toon_together.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

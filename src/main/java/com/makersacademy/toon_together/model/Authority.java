@@ -1,4 +1,4 @@
-package com.makersacademy.acebook.model;
+package com.makersacademy.toon_together.model;
 
 import lombok.Data;
 

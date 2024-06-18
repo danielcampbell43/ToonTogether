@@ -1,6 +1,6 @@
-package com.makersacademy.acebook.repository;
+package com.makersacademy.toon_together.repository;
 
-import com.makersacademy.acebook.model.User;
+import com.makersacademy.toon_together.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
