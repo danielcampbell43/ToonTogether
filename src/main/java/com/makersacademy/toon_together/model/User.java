@@ -1,4 +1,4 @@
-package com.makersacademy.acebook.model;
+package com.makersacademy.toon_together.model;
 
 import javax.persistence.*;
 
@@ -9,7 +9,7 @@ import static java.lang.Boolean.TRUE;
 
 @Data
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
