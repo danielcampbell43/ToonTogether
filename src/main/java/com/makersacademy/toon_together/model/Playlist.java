@@ -19,7 +19,7 @@ public class Playlist {
 
     @ManyToOne
     @JoinColumn(name = "owner", nullable = false)
-    private User user;
+    private User owner;
 
     private String name;
 
@@ -30,8 +30,8 @@ public class Playlist {
     @OneToMany(mappedBy = "playlist")
     List<PlaylistSong> playlistSongs;
 
-    public Playlist(User user, String name, java.sql.Timestamp createdAt) {
-        this.user = user;
+    public Playlist(User owner, String name, java.sql.Timestamp createdAt) {
+        this.owner = owner;
         this.name = name;
         this.createdAt = createdAt;
     }
