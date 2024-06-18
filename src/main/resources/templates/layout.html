@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 <head>
     <meta charset="UTF-8">
     <title>Layout</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+          >
 </head>
 <body>
 <header>
@@ -24,13 +25,10 @@
                     </li>
                 </ul>
             </div>
-            <div th:if="${name != null}">
-                <span class="navbar-text">Hello, <span th:text="${#strings.substringBefore(name, ' ')}"></span></span>
+            <div>
+                <span> Hello <span sec:authentication="name"></span></span>
 
-                <a class="btn btn-secondary ml-2 button-8" href="/logout">Logout</a>
-            </div>
-            <div th:unless="${name != null}">
-                <a class="btn btn-primary ml-auto button-8" href="/login">Login</a>
+                <a id="logout-button" class="btn btn-secondary ml-2 button-8" href="/logout">Logout</a>
             </div>
         </div>
     </nav>

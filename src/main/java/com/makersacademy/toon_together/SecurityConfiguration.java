@@ -29,6 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").hasRole("USER")
                 .antMatchers("/users").permitAll()
                 .and().formLogin();
+//                .loginPage("/login") // Optional: Specify a custom login page
+//                .defaultSuccessUrl("/myprofile"), true
+
     }
 
     @Bean
