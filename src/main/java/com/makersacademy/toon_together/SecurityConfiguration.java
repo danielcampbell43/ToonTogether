@@ -1,4 +1,4 @@
-package com.makersacademy.acebook;
+package com.makersacademy.toon_together;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

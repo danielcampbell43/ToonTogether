@@ -16,6 +16,15 @@
         Hello <span sec:authentication="name"></span>
     </div>
 
+    <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post">
+        <p>Name: <input type="text" th:field="*{name}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+    <ul th:each="playlist: ${playlists}">
+        <li th:text="${playlist.name}" />
+    </ul>
+
     <div th:replace="layout :: footer"></div>
     </body>
 </html>
