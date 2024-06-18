@@ -1,6 +1,6 @@
 import com.github.javafaker.Faker;
-import com.makersacademy.acebook.Application;
-import com.makersacademy.acebook.model.User;
+import com.makersacademy.toon_together.Application;
+import com.makersacademy.toon_together.model.User;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
