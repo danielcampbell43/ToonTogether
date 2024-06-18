@@ -1,6 +1,5 @@
 import com.github.javafaker.Faker;
 import com.makersacademy.toon_together.Application;
-import com.makersacademy.toon_together.model.User;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,9 +12,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
-public class LogInTest {
+
+public class UserProfileTest {
     WebDriver driver;
     Faker faker;
 
@@ -25,14 +30,6 @@ public class LogInTest {
         System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         faker = new Faker();
-    }
-    @After
-    public void tearDown() {
-        driver.close();
-    }
-
-    @Test
-    public void successfulLoginRedirectsToHomepage() {
         String details = faker.name().firstName();
         driver.get("http://localhost:8080/users/new");
         driver.findElement(By.id("username")).sendKeys(details);
@@ -43,12 +40,21 @@ public class LogInTest {
         driver.findElement(By.id("username")).sendKeys(details);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.tagName("button")).click();
-        WebElement header = driver.findElement(By.tagName("h1"));
-        String titleAsStr = header.getText();
-        Assert.assertEquals("Welcome", titleAsStr);
+    }
+    @After
+    public void tearDown() {
+        driver.close();
+    }
+
+    @Test
+    public void usersMostRecentPlaylistAppearsOnProfilePage() {
+        String playlistName = faker.pokemon().name();
+        driver.findElement(By.id("playlist-name")).sendKeys(playlistName);
+        driver.findElement(By.id("playlist-name-submit")).click();
+        driver.findElement(By.xpath("//*[text()='My Profile']")).click();
+        List<WebElement> listItems = driver.findElements(By.className("playlists"));
+        WebElement lastListItem = listItems.get(listItems.size() - 1);
+        String lastPlaylistContent = lastListItem.getText();
+        Assert.assertEquals(lastPlaylistContent,playlistName);
     }
 }
-
-
-
-

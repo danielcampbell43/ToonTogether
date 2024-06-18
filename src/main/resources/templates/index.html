@@ -17,11 +17,11 @@
     </div>
 
     <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post">
-        <p>Name: <input type="text" th:field="*{name}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p>Name: <input id="playlist-name" type="text" th:field="*{name}" /></p>
+        <p><input id="playlist-name-submit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul th:each="playlist: ${playlists}">
+    <ul class="playlists" th:each="playlist: ${playlists}">
         <li th:text="${playlist.name}" />
         <form th:action="@{/playlists(id=${playlist.id})}" th:method="delete">
             <button type="submit">Delete</button>

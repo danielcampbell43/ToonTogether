@@ -10,10 +10,14 @@
 <body>
 <div th:replace="layout :: header"></div>
 
-<h1>MY PROFILE</h1>
+<h1><span sec:authentication="name"></span>'s Profile</h1>
+
 
 <div sec:authorize="isAuthenticated()">
-    Hello <span sec:authentication="name"></span>
+    <p>Hello <span sec:authentication="name"></span>, here are your playlists: </p>
+    <ul class="playlists">
+        <li th:each="playlist : ${playlists}" th:text="${playlist.name}"></li>
+    </ul>
 </div>
 
 <div th:replace="layout :: footer"></div>
