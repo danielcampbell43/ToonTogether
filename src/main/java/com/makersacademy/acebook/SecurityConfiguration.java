@@ -26,9 +26,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/posts").hasRole("USER")
+                .antMatchers("/").hasRole("USER")
                 .antMatchers("/users").permitAll()
                 .and().formLogin();
+//                .loginPage("/login") // Optional: Specify a custom login page
+//                .defaultSuccessUrl("/myprofile"), true
+
     }
 
     @Bean
