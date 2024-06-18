@@ -15,7 +15,7 @@
 
 <div sec:authorize="isAuthenticated()">
     <p>Hello <span sec:authentication="name"></span>, here are your playlists: </p>
-    <ul>
+    <ul class="playlists">
         <li th:each="playlist : ${playlists}" th:text="${playlist.name}"></li>
     </ul>
 </div>
