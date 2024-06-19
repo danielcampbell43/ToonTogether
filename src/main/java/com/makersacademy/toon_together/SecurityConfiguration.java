@@ -36,7 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout") // Specify the logout URL
                 .logoutSuccessUrl("/login?logout") // Redirect to the login page after logout
-                .permitAll(); // Allow everyone to access the logout URL
+                .permitAll() // Allow everyone to access the logout URL
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/logout");
     }
 
     @Bean

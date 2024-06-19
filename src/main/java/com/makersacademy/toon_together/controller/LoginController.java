@@ -12,12 +12,12 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logoutPage() {
-        return "redirect:/logout"; // Redirect to confirmation page
+    public String logout() {
+        return "logout"; // Redirect to confirmation page
     }
 
     @PostMapping("/logout") // Handle POST request for logout
-    public String logout() {
+    public String logoutPage() {
         // Spring Security will handle the actual logout process
         return "redirect:/login?logout"; // Redirect to login page with logout parameter
     }
