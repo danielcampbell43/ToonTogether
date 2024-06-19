@@ -28,8 +28,10 @@ public class PlaylistController {
 
         if (search != null && !search.isEmpty()) {
             playlists = playlistRepository.findByNameContainingIgnoreCase(search);
+            model.addAttribute("searchQuery", search);
         } else {
             playlists = playlistRepository.findAll();
+            model.addAttribute("searchQuery", null);
         }
 
         model.addAttribute("playlist", new Playlist());
