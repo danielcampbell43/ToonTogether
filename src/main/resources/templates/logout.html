@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Logout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Are you sure you want to logout?</h2>
+    <form id="logout-form" action="/logout" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button type="submit" class="btn btn-primary">Logout</button>
+        <a href="/" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
