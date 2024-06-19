@@ -27,16 +27,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").hasRole("USER")
-                .antMatchers("/users", "/login").permitAll()
+                .antMatchers("/users", "/login", "/logout").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login") // Specify a custom login page
                 .permitAll() // Allow everyone to see the login page
-                .and();
-//                .logout()
-//                .logoutUrl("/logout") // Specify the logout URL
-//                .logoutSuccessUrl("/login?logout") // Redirect to the login page after logout
-//                .permitAll(); // Allow everyone to access the logout URL
+                .and()
+                .logout()
+                .logoutUrl("/logout") // Specify the logout URL
+                .logoutSuccessUrl("/login?logout") // Redirect to the login page after logout
+                .permitAll(); // Allow everyone to access the logout URL
     }
 
     @Bean
