@@ -15,11 +15,28 @@
     <div sec:authorize="isAuthenticated()">
         Hello <span sec:authentication="name"></span>
     </div>
-
+    <div>
+        Create a new playlist:
+    </div>
     <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post">
-        <p>Name: <input id="playlist-name" type="text" th:field="*{name}" /></p>
+        <p>Name: <input id="playlist-name" type="text" th:field="*{name}" required minlength="1" /></p>
         <p><input id="playlist-name-submit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
+
+    <hr class="solid">
+
+    <form th:action="@{/playlists}" method="get">
+        <p>Search playlists: <input type="text" name="search"/></p>
+        <p>
+            <input class="search-submit" type="submit" value="Search"/>
+            <a th:if="${searchQuery != null and !searchQuery.isEmpty()}" th:href="@{/playlists}">Reset</a>
+        </p>
+    </form>
+
+    <div th:if="${searchQuery != null}">
+        <p>Showing playlists for: <strong th:text="${searchQuery}"></strong></p>
+
+    </div>
 
     <ul th:each="playlist: ${playlists}">
         <li class="playlists" th:text="${playlist.name}" />
