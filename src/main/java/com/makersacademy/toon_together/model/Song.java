@@ -14,6 +14,14 @@ public class Song {
     @Id
     private int id;
 
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private java.sql.Timestamp createdAt;
+
     @OneToMany(mappedBy = "song")
     List<PlaylistSong> playlistSongs;
+
+    public Song(java.sql.Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
 }
