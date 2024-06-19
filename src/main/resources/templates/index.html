@@ -21,8 +21,8 @@
         <p><input id="playlist-name-submit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
 
-    <ul class="playlists" th:each="playlist: ${playlists}">
-        <li th:text="${playlist.name}" />
+    <ul th:each="playlist: ${playlists}">
+        <li class="playlists" th:text="${playlist.name}" />
         <form th:action="@{/playlists(id=${playlist.id})}" th:method="delete">
             <button type="submit">Delete</button>
         </form>
