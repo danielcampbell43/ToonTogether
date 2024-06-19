@@ -18,14 +18,14 @@
 
     <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post">
         <p>Name: <input id="playlist-name" type="text" th:field="*{name}" /></p>
-        <p><input id="playlist-name-submit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <p><input id="playlist-name-submit" type="submit" value="Submit" class="btn btn-light"/> <input type="reset" value="Reset" class="btn btn-light"/></p>
     </form>
 
     <ul th:each="playlist: ${playlists}">
         <li class="playlists" th:text="${playlist.name}" />
         <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
             <input type="hidden" name="_method" value="delete">
-            <button type="submit">Delete</button>
+            <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
         </form>
     </ul>
 
