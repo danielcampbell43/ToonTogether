@@ -22,11 +22,12 @@ public class PlaylistController {
     AuthoritiesRepository authoritiesRepository;
 
     @GetMapping("/playlists")
-    public String index(Model model) {
-
+    public String index(Model model, Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName());
         Iterable<Playlist> playlists = playlistRepository.findAll();
         model.addAttribute("playlist", new Playlist());
         model.addAttribute("playlists", playlists);
+        model.addAttribute("currentUser", user);
         return "/index";
     }
 
@@ -35,7 +36,6 @@ public class PlaylistController {
         playlist.setOwner(userRepository.findByUsername(auth.getName()));
         playlistRepository.save(playlist);
         return new RedirectView("/playlists");
-
     }
 
     @DeleteMapping("/playlists")
@@ -45,7 +45,6 @@ public class PlaylistController {
         if (user.getId() == playlist.getOwner().getId()) {
             playlistRepository.deleteById(id);
         }
-//        maybe want to add some sort of pop-up saying you can delete a playlist that isn't yours
         return new RedirectView("/playlists");
     }
 }
