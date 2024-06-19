@@ -22,9 +22,18 @@ public class PlaylistController {
     AuthoritiesRepository authoritiesRepository;
 
     @GetMapping("/playlists")
-    public String index(Model model, Authentication auth) {
+    public String index(@RequestParam(value = "search", required = false) String search, Model model, Authentication auth) {
         User user = userRepository.findByUsername(auth.getName());
-        Iterable<Playlist> playlists = playlistRepository.findAll();
+        Iterable<Playlist> playlists;
+
+        if (search != null && !search.isEmpty()) {
+            playlists = playlistRepository.findByNameContainingIgnoreCase(search);
+            model.addAttribute("searchQuery", search);
+        } else {
+            playlists = playlistRepository.findAll();
+            model.addAttribute("searchQuery", null);
+        }
+
         model.addAttribute("playlist", new Playlist());
         model.addAttribute("playlists", playlists);
         model.addAttribute("currentUser", user);

@@ -42,15 +42,45 @@
             </ul>
         </div>
     </div>
-</div>
 
-<div th:replace="layout :: footer"></div>
+    <div>
+        Create a new playlist:
+    </div>
+    <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post">
+        <p>Name: <input id="playlist-name" type="text" th:field="*{name}" required minlength="1" /></p>
+        <p><input id="playlist-name-submit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
 
-<!-- Playlist deletion confirmation message -->
-<script>
-    function confirmDelete() {
-        return confirm("Are you sure you want to delete this playlist?");
-    }
+    <hr class="solid">
+
+    <form th:action="@{/playlists}" method="get">
+        <p>Search playlists: <input type="text" name="search"/></p>
+        <p>
+            <input class="search-submit" type="submit" value="Search"/>
+            <a th:if="${searchQuery != null and !searchQuery.isEmpty()}" th:href="@{/playlists}">Reset</a>
+        </p>
+    </form>
+
+    <div th:if="${searchQuery != null}">
+        <p>Showing playlists for: <strong th:text="${searchQuery}"></strong></p>
+
+    </div>
+
+    <ul th:each="playlist: ${playlists}">
+        <li class="playlists" th:text="${playlist.name}" />
+        <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit">Delete</button>
+        </form>
+    </ul>
+
+    <div th:replace="layout :: footer"></div>
+
+    <!-- Playlist deletion confirmation message -->
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this playlist?");
+        }
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
