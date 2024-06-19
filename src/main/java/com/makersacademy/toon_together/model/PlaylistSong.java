@@ -19,4 +19,14 @@ public class PlaylistSong {
     @ManyToOne
     @JoinColumn(name = "song_id")
     Song song;
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private java.sql.Timestamp createdAt;
+
+    public PlaylistSong(Playlist playlist, Song song, java.sql.Timestamp createdAt) {
+        this.playlist = playlist;
+        this.song = song;
+        this.createdAt = createdAt;
+    }
 }
