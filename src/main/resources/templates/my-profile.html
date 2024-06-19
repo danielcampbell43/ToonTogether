@@ -34,6 +34,14 @@
         <div class="col-md-6">
             <div class="container">
                 <h3>Add a Song</h3>
+                <!-- Choose which playlist you want the song to be added to -->
+                <div class="form-group">
+                    <label for="playlist-select">Select Playlist:</label>
+                    <select id="playlist-select" name="playlistId" class="form-control" required>
+                        <option value="" disabled selected>Select a playlist</option>
+                        <option th:each="playlist : ${playlists}" th:value="${playlist.id}" th:text="${playlist.name}"></option>
+                    </select>
+                </div>
                 <form>
                     <!-- Simulated CSRF token -->
                     <input type="hidden" name="_csrf" value="dummyCsrfToken">
