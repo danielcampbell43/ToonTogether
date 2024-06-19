@@ -15,10 +15,19 @@
     <div sec:authorize="isAuthenticated()">
         Hello <span sec:authentication="name"></span>
     </div>
-
+    <div>
+        Create a new playlist:
+    </div>
     <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post">
         <p>Name: <input id="playlist-name" type="text" th:field="*{name}" required minlength="1" /></p>
         <p><input id="playlist-name-submit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+    <hr class="solid">
+
+    <form th:action="@{/playlists}" method="get">
+        <p>Search playlists: <input type="text" name="search"/></p>
+        <p><input type="submit" value="Search"/></p>
     </form>
 
     <ul th:each="playlist: ${playlists}">
