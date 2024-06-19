@@ -22,11 +22,12 @@ public class PlaylistController {
     AuthoritiesRepository authoritiesRepository;
 
     @GetMapping("/playlists")
-    public String index(Model model) {
-
+    public String index(Model model, Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName());
         Iterable<Playlist> playlists = playlistRepository.findAll();
         model.addAttribute("playlist", new Playlist());
         model.addAttribute("playlists", playlists);
+        model.addAttribute("currentUser", user);
         return "/index";
     }
 
