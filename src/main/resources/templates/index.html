@@ -28,7 +28,7 @@
     <form th:action="@{/playlists}" method="get">
         <p>Search playlists: <input type="text" name="search"/></p>
         <p>
-            <input type="submit" value="Search"/>
+            <input class="search-submit" type="submit" value="Search"/>
             <a th:if="${searchQuery != null and !searchQuery.isEmpty()}" th:href="@{/playlists}">Reset</a>
         </p>
     </form>
