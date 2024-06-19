@@ -23,9 +23,9 @@
 
     <ul th:each="playlist: ${playlists}">
         <li class="playlists" th:text="${playlist.name}" />
-        <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
+        <form class="playlist-del-form" th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
             <input type="hidden" name="_method" value="delete">
-            <button type="submit">Delete</button>
+            <button id="del-playlist" type="submit">Delete</button>
         </form>
     </ul>
 
