@@ -24,7 +24,7 @@
                     <li class="playlists" th:text="${playlist.name}" />
                     <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/myprofile(id=${playlist.id})}" th:method="delete" onsubmit="return confirmDelete()">
                         <input type="hidden" name="_method" value="delete">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
                     </form>
                 </ul>
             </div>

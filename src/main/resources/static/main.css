@@ -1,3 +1,12 @@
 .playlist-list {
     margin-bottom: 20px; /* Add margin between the two sections */
     }
+
+ .profile-content {
+     padding-bottom: 100px; /* Adjust this value as needed */
+     }
+
+ .navbar .d-flex.align-items-center {
+     display: flex;
+     align-items: center;
+ }
