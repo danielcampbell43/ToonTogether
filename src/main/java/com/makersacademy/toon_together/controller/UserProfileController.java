@@ -20,13 +20,15 @@ import java.util.Optional;
 public class UserProfileController {
     @Autowired
     PlaylistRepository playlistRepository;
+    @Autowired
+    UserRepository userRepository;
 
 
     @RequestMapping(value = "/myprofile")
     public String myProfile(Model model, Authentication authentication) {
         if (authentication != null) {
             String username = authentication.getName();
-            Iterable<Playlist> playlists = playlistRepository.findByUserUsername(username);
+            Iterable<Playlist> playlists = playlistRepository.findByOwner(userRepository.findByUsername(username));
             model.addAttribute("playlists", playlists);
         } else {
             model.addAttribute("playlists", null);
