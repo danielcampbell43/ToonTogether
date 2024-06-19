@@ -36,7 +36,6 @@ public class PlaylistController {
         playlist.setOwner(userRepository.findByUsername(auth.getName()));
         playlistRepository.save(playlist);
         return new RedirectView("/playlists");
-
     }
 
     @DeleteMapping("/playlists")
@@ -46,7 +45,6 @@ public class PlaylistController {
         if (user.getId() == playlist.getOwner().getId()) {
             playlistRepository.deleteById(id);
         }
-//        maybe want to add some sort of pop-up saying you can delete a playlist that isn't yours
         return new RedirectView("/playlists");
     }
 }
