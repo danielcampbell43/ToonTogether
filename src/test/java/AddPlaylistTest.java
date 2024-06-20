@@ -52,9 +52,9 @@ public class AddPlaylistTest {
         driver.findElement(By.id("playlist-name")).sendKeys(playlistName);
         driver.findElement(By.id("playlist-name-submit")).click();
         List<WebElement> listItems = driver.findElements(By.className("playlists"));
-        WebElement lastListItem = listItems.get(listItems.size() - 1);
-        String lastPlaylistContent = lastListItem.getText();
-        System.out.println("Last playlist content: " + lastPlaylistContent);
-        assertTrue("Playlist name not found in the last list item", lastPlaylistContent.contains(playlistName));
+        WebElement firstListItem = listItems.get(0);
+        String firstPlaylistContent = firstListItem.getText();
+        System.out.println("Last playlist content: " + firstPlaylistContent);
+        Assert.assertTrue("Playlist name not found in the last list item" + firstPlaylistContent, firstPlaylistContent.contains(playlistName));
     }
 }
