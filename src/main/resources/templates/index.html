@@ -22,11 +22,13 @@
     </form>
 
     <ul th:each="playlist: ${playlists}">
-        <li class="playlists" th:text="${playlist.name}" />
-        <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
-            <input type="hidden" name="_method" value="delete">
-            <button type="submit">Delete</button>
-        </form>
+        <li class="playlists">
+            <span class="owner-name" th:text="${playlist.name}"></span> -
+            <span class="timestamp" th:text="'Created by ' + ${playlist.owner.username} + ' at ' + ${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></span>
+            <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit">Delete</button>
+            </form>
     </ul>
 
     <div th:replace="layout :: footer"></div>
