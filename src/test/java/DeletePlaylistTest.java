@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -50,9 +52,10 @@ public class DeletePlaylistTest {
 
     @Test
     public void successfulDeletePlaylist() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         List<WebElement> listItems = driver.findElements(By.className("playlist-del-form"));
-        WebElement lastListItem = listItems.get(listItems.size() - 1);
-        lastListItem.findElement((By.id("del-playlist"))).click();
+        WebElement firstListItem = listItems.get(0);
+        wait.until(ExpectedConditions.elementToBeClickable(firstListItem.findElement(By.id("del-playlist")))).click();
         driver.switchTo().alert().accept();
         listItems = driver.findElements(By.className("playlists"));
         for (WebElement webEl : listItems) {

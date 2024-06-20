@@ -30,7 +30,7 @@ public class PlaylistController {
             playlists = playlistRepository.findByNameContainingIgnoreCase(search);
             model.addAttribute("searchQuery", search);
         } else {
-            playlists = playlistRepository.findAll();
+            playlists = playlistRepository.findAllByOrderByCreatedAtDesc();
             model.addAttribute("searchQuery", null);
         }
 
