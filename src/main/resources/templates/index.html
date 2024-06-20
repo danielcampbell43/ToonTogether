@@ -1,36 +1,61 @@
 <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org"
-          xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
-    <head lang="en">
-        <meta charset="UTF-8"/>
-        <title>ToonTogether</title>
-        <link rel="stylesheet" href="/main.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-    <body>
-    <div th:replace="layout :: header"></div>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>ToonTogether</title>
+    <link rel="stylesheet" href="/main.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="layout :: header"></div>
 
-    <h1>Welcome</h1>
-
-    <div sec:authorize="isAuthenticated()">
-        Hello <span sec:authentication="name"></span>
+<div class="container mt-4 profile-content">
+    <div class="text-center mb-4">
+        <h1>Welcome</h1>
     </div>
 
-    <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post">
-        <p>Name: <input id="playlist-name" type="text" th:field="*{name}" /></p>
-        <p><input id="playlist-name-submit" type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
 
-    <ul th:each="playlist: ${playlists}">
-        <li class="playlists">
-            <span class="owner-name" th:text="${playlist.name}"></span> -
-            <span class="timestamp" th:text="'Created by ' + ${playlist.owner.username} + ' at ' + ${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></span>
-            <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
-                <input type="hidden" name="_method" value="delete">
-                <button type="submit">Delete</button>
+            <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post" class="mb-4">
+                <div class="form-group">
+                    <p>Create a playlist</p>
+                    <label for="playlist-name">Name:</label>
+                    <input id="playlist-name" type="text" th:field="*{name}" class="form-control" placeholder="My favourite songs" required minlength="1"/>
+                </div>
+                <div class="form-group text-center">
+                    <input id="playlist-name-submit" type="submit" value="Submit" class="btn btn-primary"/>
+                    <input type="reset" value="Reset" class="btn btn-secondary"/>
+                </div>
             </form>
-    </ul>
 
+            <form th:action="@{/playlists}" method="get">
+                <p>Search playlists: <input type="text" name="search"/></p>
+                <p>
+                    <input class="search-submit btn btn-primary" type="submit" value="Search"/>
+                    <a th:if="${searchQuery != null and !searchQuery.isEmpty()}" th:href="@{/playlists}">Reset</a>
+                </p>
+            </form>
+
+            <div th:if="${searchQuery != null}">
+                <p>Showing playlists for: <strong th:text="${searchQuery}"></strong></p>
+
+            </div>
+
+            <p>Playlists</p>
+            <ul th:each="playlist: ${playlists}">
+                <li class="playlists" th:text="${playlist.name}" />
+                    <span class="owner-name" th:text="${playlist.name}"></span> -
+                    <span class="timestamp" th:text="'Created by ' + ${playlist.owner.username} + ' at ' + ${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></span>
+                    <form class="playlist-del-form" th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
+                        <input type="hidden" name="_method" value="delete">
+                        <button id="del-playlist" type="submit" class="btn btn-secondary btn-sm">Delete</button>
+                    </form>
+            </ul>
+        </div>
+    </div>
     <div th:replace="layout :: footer"></div>
 
     <!-- Playlist deletion confirmation message -->
@@ -38,6 +63,15 @@
         function confirmDelete() {
             return confirm("Are you sure you want to delete this playlist?");
         }
-    </script>
-    </body>
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
 </html>

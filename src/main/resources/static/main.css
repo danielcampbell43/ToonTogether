@@ -1,10 +1,12 @@
-.posts-main {
-    border-collapse: collapse;
-}
+.playlist-list {
+    margin-bottom: 20px; /* Add margin between the two sections */
+    }
 
-.post-main {
-    border: 1px solid #999;
-    padding: 0.5rem;
-    text-align: left;
-    margin-bottom: 0.5rem;;
-}
+ .profile-content {
+     padding-bottom: 100px; /* Adjust this value as needed */
+     }
+
+ .navbar .d-flex.align-items-center {
+     display: flex;
+     align-items: center;
+ }
