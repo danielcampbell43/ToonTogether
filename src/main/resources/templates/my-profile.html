@@ -83,7 +83,8 @@
                 cropping: true, // add a cropping step
                 croppingCoordinatesMode: 'custom',
                 multiple: false,  // restrict upload to a single file
-                singleUploadAutoClose: false
+                singleUploadAutoClose: false,
+                clientAllowedFormats: ['jpg', 'png']
             }, (error, result) => {
                 if (!error && result && result.event === "success") {
                     console.log('Done! Here is the image info: ', result.info);
