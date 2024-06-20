@@ -11,4 +11,5 @@ public interface PlaylistRepository extends CrudRepository<Playlist, Integer> {
     Playlist findById(int id);
     void deleteById(int id);
     List<Playlist> findByNameContainingIgnoreCase(String name);
+    List<Playlist> findAllByOrderByCreatedAtDesc();
 }
