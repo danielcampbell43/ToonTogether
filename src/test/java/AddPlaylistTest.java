@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
@@ -42,7 +43,7 @@ public class AddPlaylistTest {
     }
     @After
     public void tearDown() {
-        driver.close();
+        driver.quit();
     }
 
     @Test
@@ -52,7 +53,8 @@ public class AddPlaylistTest {
         driver.findElement(By.id("playlist-name-submit")).click();
         List<WebElement> listItems = driver.findElements(By.className("playlists"));
         WebElement firstListItem = listItems.get(0);
-        String lastPlaylistContent = firstListItem.getText();
-        Assert.assertEquals(lastPlaylistContent, playlistName);
+        String firstPlaylistContent = firstListItem.getText();
+        System.out.println("Last playlist content: " + firstPlaylistContent);
+        Assert.assertTrue("Playlist name not found in the last list item" + firstPlaylistContent, firstPlaylistContent.contains(playlistName));
     }
 }

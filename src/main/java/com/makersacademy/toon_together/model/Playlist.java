@@ -5,6 +5,7 @@ import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Playlist {
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.sql.Timestamp createdAt;
 
     @OneToMany(mappedBy = "playlist")
