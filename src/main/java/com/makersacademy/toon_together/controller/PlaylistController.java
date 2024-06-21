@@ -6,6 +6,9 @@ import com.makersacademy.toon_together.repository.AuthoritiesRepository;
 import com.makersacademy.toon_together.repository.PlaylistRepository;
 import com.makersacademy.toon_together.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,21 +25,27 @@ public class PlaylistController {
     AuthoritiesRepository authoritiesRepository;
 
     @GetMapping("/playlists")
-    public String index(@RequestParam(value = "search", required = false) String search, Model model, Authentication auth) {
+    public String index(@RequestParam(value = "search", required = false) String search, Model model, Authentication auth,
+                        @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "10") int size) {
         User user = userRepository.findByUsername(auth.getName());
-        Iterable<Playlist> playlists;
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Playlist> playlistPage;
 
         if (search != null && !search.isEmpty()) {
-            playlists = playlistRepository.findByNameContainingIgnoreCase(search);
+            playlistPage = playlistRepository.findByNameContainingIgnoreCase(search, pageable);
             model.addAttribute("searchQuery", search);
         } else {
-            playlists = playlistRepository.findAllByOrderByCreatedAtDesc();
+            playlistPage = playlistRepository.findAllByOrderByCreatedAtDesc(pageable);
             model.addAttribute("searchQuery", null);
         }
 
         model.addAttribute("playlist", new Playlist());
-        model.addAttribute("playlists", playlists);
+        model.addAttribute("playlists", playlistPage.getContent());
         model.addAttribute("currentUser", user);
+        model.addAttribute("totalPages", playlistPage.getTotalPages());
+        model.addAttribute("currentPage", page);
+
         return "/index";
     }
 
