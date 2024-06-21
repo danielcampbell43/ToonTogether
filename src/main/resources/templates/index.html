@@ -7,8 +7,14 @@
     <link rel="stylesheet" href="/main.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
+
+<!-- Gradient background element -->
+<div class="gradient-bg"></div>
+
 <div th:replace="layout :: header"></div>
 
 <div class="container mt-4 profile-content">
@@ -41,28 +47,47 @@
 
             <div th:if="${searchQuery != null}">
                 <p>Showing playlists for: <strong th:text="${searchQuery}"></strong></p>
-
             </div>
 
-            <p>Playlists</p>
-            <ul th:each="playlist: ${playlists}">
-                <li class="playlists" th:text="${playlist.name}" />
-                    <span class="owner-name" th:text="${playlist.name}"></span> -
-                    <span class="timestamp" th:text="'Created by ' + ${playlist.owner.username} + ' at ' + ${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></span>
-                    <form class="playlist-del-form" th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
-                        <input type="hidden" name="_method" value="delete">
-                        <button id="del-playlist" type="submit" class="btn btn-secondary btn-sm">Delete</button>
-                    </form>
-            </ul>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="th-no-wrap">Playlist</th>
+                    <th class="th-no-wrap">Created by</th>
+                    <th class="th-no-wrap">Date added</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="playlist: ${playlists}">
+                    <td class="td-no-wrap" th:text="${playlist.name}"></td>
+                    <td class="td-no-wrap" th:text="${playlist.owner.username}"></td>
+                    <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
+                    <td>
+                        <form th:id="'delete-form-' + ${playlist.id}"
+                              th:action="@{/playlists(id=${playlist.id})}"
+                              th:method="delete"
+                              th:if="${playlist.owner.id} == ${currentUser.id}"
+                              onsubmit="return confirmDelete()">
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
-    <div th:replace="layout :: footer"></div>
+</div>
 
-    <!-- Playlist deletion confirmation message -->
-    <script>
-        function confirmDelete() {
-            return confirm("Are you sure you want to delete this playlist?");
-        }
+<div th:replace="layout :: footer"></div>
+
+<!-- Playlist deletion confirmation message -->
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this playlist?");
+    }
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
