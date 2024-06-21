@@ -21,6 +21,20 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
      align-items: center;
  }
 
+ .circular-img {
+     width: 200px; /* or any desired width */
+     height: 200px; /* or any desired height */
+     border-radius: 50%;
+     object-fit: cover; /* This ensures the image covers the circle area */
+ }
+
+  .circular-img-icon {
+      width: 50px; /* or any desired width */
+      height: 50px; /* or any desired height */
+      border-radius: 50%;
+      object-fit: cover; /* This ensures the image covers the circle area */
+  }
+
 /* CSS to prevent wrapping */
 .th-no-wrap,
 .td-no-wrap {

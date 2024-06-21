@@ -17,7 +17,10 @@ public class User {
     private String username;
     private String password;
     private boolean enabled;
+
+    @Column(name = "profile_picture")
     private String profilePicture;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
