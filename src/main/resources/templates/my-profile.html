@@ -12,7 +12,7 @@
 <div th:replace="layout :: header"></div>
 
 <div class="text-center my-4">
-    <img th:src="@{${user.profilePicture}}" alt="profile-picture" class="circular-img" />
+    <img th:src="@{${user.profilePicture}}" alt="profile-picture" class="circular-img" id="profile-picture" />
     <h1><span sec:authentication="name"></span>'s Profile</h1>
     <button id="post_image_upload_widget" class="btn btn-primary cloudinary-button">Change Profile Picture</button>
 </div>
