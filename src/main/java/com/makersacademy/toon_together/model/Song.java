@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "songs")
 public class Song {
     @Id
-    private int id;
+    private String id;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
