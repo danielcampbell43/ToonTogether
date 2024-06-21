@@ -61,9 +61,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="playlist: ${playlists}">
-                    <td class="td-no-wrap"><img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /></td>
                     <td class="td-no-wrap" th:text="${playlist.name}"></td>
-                    <td class="td-no-wrap" th:text="${playlist.owner.username}"></td>
+<!--                    <td class="td-no-wrap" th:text="${playlist.owner.username}"><img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /></td>-->
+                    <td class="td-no-wrap"> <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /> <span th:text="${playlist.owner.username}"></span> </td>
                     <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
                     <td>
                         <form th:id="'delete-form-' + ${playlist.id}"
