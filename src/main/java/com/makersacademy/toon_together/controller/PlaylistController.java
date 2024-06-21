@@ -27,7 +27,7 @@ public class PlaylistController {
     @GetMapping("/playlists")
     public String index(@RequestParam(value = "search", required = false) String search, Model model, Authentication auth,
                         @RequestParam(defaultValue = "0") int page,
-                        @RequestParam(defaultValue = "20") int size) {
+                        @RequestParam(defaultValue = "10") int size) {
         User user = userRepository.findByUsername(auth.getName());
         Pageable pageable = PageRequest.of(page, size);
         Page<Playlist> playlistPage;
