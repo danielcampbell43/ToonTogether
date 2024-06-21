@@ -19,7 +19,7 @@ public class PlaylistSongTest {
         playlist = mock(Playlist.class);
         when(playlist.getId()).thenReturn(1);
         song = mock(Song.class);
-        when(song.getId()).thenReturn(1);
+        when(song.getId()).thenReturn("abc");
         playlistSong = new PlaylistSong(playlist, song, new Timestamp(10000));
     }
 
@@ -30,7 +30,7 @@ public class PlaylistSongTest {
 
     @Test
     public void playlistSongHasSong() {
-        assertEquals(playlistSong.getSong().getId(), 1);
+        assertEquals(playlistSong.getSong().getId(), "abc");
     }
 
     @Test
