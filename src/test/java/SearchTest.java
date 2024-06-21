@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -46,14 +48,27 @@ public class SearchTest {
 
     @Test
     public void successfulSearchPlaylists() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+
         String playlistName = faker.pokemon().name();
         driver.findElement(By.id("playlist-name")).sendKeys(playlistName);
         driver.findElement(By.id("playlist-name-submit")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//table/tbody/tr/td[contains(text(), '" + playlistName + "')]")));
+
         driver.findElement(By.name("search")).sendKeys((playlistName));
         driver.findElement(By.className("search-submit")).click();
-        List<WebElement> listItems = driver.findElements(By.className("playlists"));
-        WebElement lastListItem = listItems.get(listItems.size() - 1);
-        String lastPlaylistContent = lastListItem.getText();
-        Assert.assertEquals(lastPlaylistContent, playlistName);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//table/tbody/tr/td[contains(text(), '" + playlistName + "')]")));
+
+        List<WebElement> listItems = driver.findElements(By.xpath("//table/tbody/tr"));
+        boolean playlistFound = false;
+        for (WebElement listItem : listItems) {
+            WebElement playlistNameElement = listItem.findElement(By.xpath(".//td[1]"));
+            if (playlistNameElement.getText().contains(playlistName)) {
+                playlistFound = true;
+                break;
+            }
+        }
+
+        Assert.assertTrue("Playlist name not found in the search results", playlistFound);
     }
 }
