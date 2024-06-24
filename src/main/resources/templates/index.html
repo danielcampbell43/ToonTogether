@@ -56,7 +56,8 @@
                     <th class="th-no-wrap">Playlist</th>
                     <th class="th-no-wrap">Created by</th>
                     <th class="th-no-wrap">Date added</th>
-                    <th>Action</th>
+                    <th>Favourite</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -67,7 +68,10 @@
                     <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
                     <td>
                         <form th:id="'favourite-form-' + ${playlist.id}" th:action="@{/playlist/favourite(id=${playlist.id})}" th:method="post">
-                            <button type="submit" class="btn btn-secondary btn-sm">Favourite</button>
+                            <button type="submit"
+                                    class="btn btn-secondary btn-sm"
+                                    th:text="${playlist.containsUser(#authentication.getPrincipal().getUsername()) ? 'Unfavourite' : 'Favourite'}">
+                            </button>
                         </form>
                     </td>
                     <td>
