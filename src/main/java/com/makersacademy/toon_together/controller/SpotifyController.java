@@ -38,7 +38,7 @@ public class SpotifyController {
             System.out.println(artistNames);
             // json
             // name, artist, album, release_year, image
-            return "trackDetails";
+            return "termsandconditions";
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             e.printStackTrace();
             model.addAttribute("error", "Failed to retrieve track data");
