@@ -2,18 +2,22 @@ package com.makersacademy.toon_together.controller;
 
 import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.User;
+import com.makersacademy.toon_together.model.Collaborator;
 import com.makersacademy.toon_together.repository.AuthoritiesRepository;
 import com.makersacademy.toon_together.repository.PlaylistRepository;
 import com.makersacademy.toon_together.repository.UserRepository;
+import com.makersacademy.toon_together.repository.CollaboratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import java.time.LocalDateTime;
 
 @Controller
 public class PlaylistController {
@@ -23,6 +27,8 @@ public class PlaylistController {
     UserRepository userRepository;
     @Autowired
     AuthoritiesRepository authoritiesRepository;
+    @Autowired
+    private CollaboratorRepository collaboratorRepository;
 
     @GetMapping("/playlists")
     public String index(@RequestParam(value = "search", required = false) String search, Model model, Authentication auth,
@@ -65,4 +71,43 @@ public class PlaylistController {
         }
         return new RedirectView("/playlists");
     }
+    @PostMapping("/addCollaborator")
+    public String addCollaborator(@RequestParam("playlistId") int playlistId,
+                                  @RequestParam("collaboratorUsername") String collaboratorUsername,
+                                  Authentication authentication) {
+
+        User currentUser = userRepository.findByUsername(authentication.getName());
+
+        Playlist playlist = playlistRepository.findById(playlistId);
+
+        if (playlist == null) {
+            return "redirect:/playlists";
+        }
+
+        if (!playlist.getOwner().equals(currentUser)) {
+            return "redirect:/playlists";
+        }
+
+        User collaborator = userRepository.findByUsername(collaboratorUsername);
+
+        if (collaborator == null) {
+            System.out.println("hello3");
+            return "redirect:/playlists";
+        }
+
+        if (collaboratorRepository.existsByUserAndPlaylist(collaborator, playlist)) {
+            return "redirect:/playlists";
+        }
+
+        Collaborator newCollaborator = new Collaborator(collaborator, playlist);
+        collaboratorRepository.save(newCollaborator);
+
+        return "redirect:/playlists";
+    }
+
+
+
+
+
+
 }
