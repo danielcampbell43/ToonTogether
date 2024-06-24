@@ -14,13 +14,12 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#signupForm').submit(function(event) {
-                event.preventDefault(); // Prevent default form submission
-                // Show popup message
-                $('#signupSuccessModal').modal('show');
-            });
-        });
+    $(document).ready(function() {
+    $('#signupSuccessModal').modal('show');
+    setTimeout(function() {
+    window.location.href = '/login';
+    }, 5000); // 5 seconds
+    });
     </script>
 </head>
 <body>
@@ -32,46 +31,46 @@
     </nav>
 </header>
 
-<!-- Signup Success Modal -->
-<!--<div class="modal fade" id="signupSuccessModal" tabindex="-1" role="dialog" aria-labelledby="signupSuccessModalLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="signupSuccessModalLabel">Signup Successful!</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <p>Thanks for signing up! Click below to go back to the login page.</p>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                <a href="/login" class="btn btn-primary">Go to Login</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+ Signup Success Modal
+<div class="modal fade" id="signupSuccessModal" tabindex="-1" role="dialog" aria-labelledby="signupSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signupSuccessModalLabel">Signup Successful!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Thanks for signing up! Click below to go back to the login page.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="/login" class="btn btn-primary">Go to Login</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!--<div class="container">-->
-<!--    <h2>Sign up</h2>-->
-<!--    <form id="signupForm" th:action="@{/users}" th:object="${user}" method="post">-->
-<!--        <p>Username: <input type="text" th:field="*{username}" /></p>-->
-<!--        <p>Password: <input type="password" th:field="*{password}" /></p>-->
-<!--        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>-->
-<!--        <button type="reset" class="btn btn-secondary" value="Reset">Reset</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<div>
+<div class="container">
     <h2>Sign up</h2>
-    <form action="#" th:action="@{/users}" th:object="${user}" method="post">
+    <form id="signupForm" th:action="@{/users}" th:object="${user}" method="post">
         <p>Username: <input type="text" th:field="*{username}" /></p>
         <p>Password: <input type="password" th:field="*{password}" /></p>
-        <button type="submit" class="btn btn-primary" value="Submit" id="submit">Submit</button>
+        <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
         <button type="reset" class="btn btn-secondary" value="Reset">Reset</button>
     </form>
 </div>
+
+<!--<div>-->
+<!--    <h2>Sign up</h2>-->
+<!--    <form action="#" th:action="@{/users}" th:object="${user}" method="post">-->
+<!--        <p>Username: <input type="text" th:field="*{username}" /></p>-->
+<!--        <p>Password: <input type="password" th:field="*{password}" /></p>-->
+<!--        <button type="submit" class="btn btn-primary" value="Submit" id="submit">Submit</button>-->
+<!--        <button type="reset" class="btn btn-secondary" value="Reset">Reset</button>-->
+<!--    </form>-->
+<!--</div>-->
 </body>
 </html>
 
