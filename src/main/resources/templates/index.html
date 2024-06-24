@@ -25,6 +25,9 @@
     <div th:if="${errorMessage}" class="alert alert-danger">
         <p th:text="${errorMessage}"></p>
     </div>
+    <div th:if="${successMessage}" class="success">
+        <p th:text="${successMessage}"></p>
+    </div>
 
     <div class="row">
         <div class="col-md-6 offset-md-3">

@@ -109,6 +109,7 @@ public class PlaylistController {
         Collaborator newCollaborator = new Collaborator(collaborator, playlist);
         collaboratorRepository.save(newCollaborator);
 
+        redirectAttributes.addFlashAttribute("successMessage", "Collaborator added successfully.");
         return "redirect:/playlists";
       }
 
