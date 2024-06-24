@@ -26,9 +26,8 @@ public class Favourite {
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
 
-    public Favourite(Playlist playlist, User user, java.sql.Timestamp createdAt) {
+    public Favourite(Playlist playlist, User user) {
         this.playlist = playlist;
         this.user = user;
-        this.createdAt = createdAt;
     }
 }
