@@ -1,9 +1,19 @@
+/* Import the Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Apply the font to the body and all text elements */
+body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, td {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
 .playlist-list {
     margin-bottom: 20px; /* Add margin between the two sections */
     }
 
  .profile-content {
-     padding-bottom: 100px; /* Adjust this value as needed */
+     padding-bottom: 100px;
      }
 
  .navbar .d-flex.align-items-center {
@@ -24,3 +34,94 @@
       border-radius: 50%;
       object-fit: cover; /* This ensures the image covers the circle area */
   }
+
+/* CSS to prevent wrapping */
+.th-no-wrap,
+.td-no-wrap {
+    white-space: nowrap;
+}
+
+/* Gradient background animation */
+.gradient-bg {
+    height: 100vh; /* full height coverage */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* full width coverage */
+    z-index: -1; /* Place it behind other content */
+    animation: gradientAnimation 30s ease infinite; /* Animation details */
+    background: linear-gradient(to bottom, #f0d6b0, #f2e0ca);
+    transition: background 2s ease;
+}
+
+/* Define the animation */
+@keyframes gradientAnimation {
+    0%, 100% {
+        background-position: 0 0;
+    }
+    25% {
+        background: linear-gradient(to bottom, #ffe0b2, #ffd1a4); /* Light blue to sky blue */
+    }
+    50% {
+        background: linear-gradient(to bottom, #b2dfdb, #d2f3e0); /* Light orange to deep orange */
+    }
+    75% {
+        background: linear-gradient(to bottom, #c9e3ac, #ffe4e1); /* Light green to lime green */
+    }
+    100% {
+        background: linear-gradient(to bottom, #e0bbff, #c9e3ac); /* Light pink to lavender */
+    }
+}
+
+/* login container */
+.container {
+    max-width: 400px;
+    margin: 0 auto; /* center align the container horizontally */
+    padding: 20px; /* padding inside the container */
+    background-color: rgba(255, 255, 255, 0.35); /* background color for the container */
+    border-radius: 8px; /* corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slight shadow effect */
+    margin-top: 20px; /* Space at the top */
+    margin-bottom: 20px; /* Space at the bottom */
+}
+
+.terms-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
+}
+
+.terms-container h2 {
+    font-size: 28px; /* adjusting heading size */
+    color: #0456b3;
+    margin-bottom: 10px;
+}
+
+.terms-container h3 {
+    font-size: 20px;
+    color: #212121;
+    margin-top: 20px; /* Space above h3 */
+}
+
+.terms-container p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* adjusting the text color for better contrast */
+.navbar .navbar-brand,
+.navbar .navbar-nav .nav-link {
+    color: #0456b3; /* primary colour */
+}
+
+.navbar .navbar-brand:hover,
+.navbar .navbar-nav .nav-link:hover {
+    color: #FF7F00; /* secondary */
+}

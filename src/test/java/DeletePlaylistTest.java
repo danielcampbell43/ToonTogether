@@ -47,19 +47,26 @@ public class DeletePlaylistTest {
     }
     @After
     public void tearDown() {
-        driver.close();
+        driver.quit();
     }
 
     @Test
     public void successfulDeletePlaylist() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        List<WebElement> listItems = driver.findElements(By.className("playlist-del-form"));
-        WebElement firstListItem = listItems.get(0);
-        wait.until(ExpectedConditions.elementToBeClickable(firstListItem.findElement(By.id("del-playlist")))).click();
-        driver.switchTo().alert().accept();
-        listItems = driver.findElements(By.className("playlists"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table/tbody/tr")));
+        List<WebElement> listItems = driver.findElements(By.xpath("//table/tbody/tr"));
+        WebElement firstListItem = listItems.stream()
+                .filter(item -> item.findElement(By.xpath(".//td[1]")).getText().equals(playlistName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Playlist not found."));
+        WebElement deleteButton = firstListItem.findElement(By.xpath(".//form/button")); // click the delete button
+        wait.until(ExpectedConditions.elementToBeClickable(deleteButton)).click();
+        driver.switchTo().alert().accept(); // accept the confirmation alert
+        wait.until(ExpectedConditions.stalenessOf(firstListItem));
+        listItems = driver.findElements(By.xpath("//table/tbody/tr")); // to verify the playlist is deleted
         for (WebElement webEl : listItems) {
-            assertNotEquals(playlistName, webEl.getText());
+            WebElement playlistNameElement = webEl.findElement(By.xpath(".//td[1]"));
+            assertNotEquals(playlistName, playlistNameElement.getText());
         }
     }
 }
