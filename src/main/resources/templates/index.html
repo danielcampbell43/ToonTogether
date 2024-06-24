@@ -22,6 +22,10 @@
         <h1>Welcome</h1>
     </div>
 
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
     <div class="row">
         <div class="col-md-6 offset-md-3">
 
@@ -87,17 +91,16 @@
                                     <h5 class="modal-title" id="addCollaboratorModalLabel">Add Collaborator</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
+
                                     </button>
                                 </div>
                                 <form id="addCollaboratorForm" th:action="@{/addCollaborator}" method="post">
                                     <div class="modal-body">
                                         <!-- Hidden input to store playlistId -->
                                         <input type="hidden" id="playlistId" name="playlistId" th:value="${playlist.id}" />
-
                                         <div class="form-group">
                                             <label for="collaboratorUsername">Collaborator Username:</label>
                                             <input type="text" class="form-control" id="collaboratorUsername" name="collaboratorUsername" required />
-                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,7 +113,6 @@
                 </tr>
                 </tbody>
             </table>
-
             <!-- Pagination controls -->
             <nav aria-label="Page navigation">
                 <ul class="pagination">

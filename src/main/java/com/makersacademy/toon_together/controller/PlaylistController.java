@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDateTime;
 
 @Controller
@@ -74,28 +75,28 @@ public class PlaylistController {
     @PostMapping("/addCollaborator")
     public String addCollaborator(@RequestParam("playlistId") int playlistId,
                                   @RequestParam("collaboratorUsername") String collaboratorUsername,
-                                  Authentication authentication) {
+                                  Authentication authentication,
+                                  RedirectAttributes redirectAttributes) {
 
         User currentUser = userRepository.findByUsername(authentication.getName());
 
         Playlist playlist = playlistRepository.findById(playlistId);
 
-        if (playlist == null) {
-            return "redirect:/playlists";
-        }
-
-        if (!playlist.getOwner().equals(currentUser)) {
+        if (playlist == null || !playlist.getOwner().equals(currentUser)) {
+            System.out.println("goodbye");
+            redirectAttributes.addFlashAttribute("errorMessage", "Access denied or playlist not found.");
             return "redirect:/playlists";
         }
 
         User collaborator = userRepository.findByUsername(collaboratorUsername);
 
         if (collaborator == null) {
-            System.out.println("hello3");
+            redirectAttributes.addFlashAttribute("errorMessage", "Collaborator not found.");
             return "redirect:/playlists";
         }
 
         if (collaboratorRepository.existsByUserAndPlaylist(collaborator, playlist)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Collaborator already exists in this playlist.");
             return "redirect:/playlists";
         }
 
@@ -104,10 +105,4 @@ public class PlaylistController {
 
         return "redirect:/playlists";
     }
-
-
-
-
-
-
 }
