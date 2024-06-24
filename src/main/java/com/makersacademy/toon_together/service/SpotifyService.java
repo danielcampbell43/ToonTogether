@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 import org.apache.hc.core5.http.ParseException;
 
@@ -30,5 +32,15 @@ public class SpotifyService {
     public CompletableFuture<Track> getTrack_Async(String trackId) {
         GetTrackRequest getTrackRequest = spotifyApi.getTrack(trackId).build();
         return getTrackRequest.executeAsync();
+    }
+
+    public Track searchTrackByName(String trackName) throws IOException, SpotifyWebApiException, ParseException {
+        SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(trackName).build();
+        Paging<Track> trackPaging = searchTracksRequest.execute();
+        if (trackPaging.getItems().length > 0) {
+            return trackPaging.getItems()[0]; // Return the first track found
+        } else {
+            throw new SpotifyWebApiException("No track found with name: " + trackName);
+        }
     }
 }

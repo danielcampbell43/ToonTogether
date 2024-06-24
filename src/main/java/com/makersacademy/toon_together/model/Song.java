@@ -6,6 +6,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Entity
@@ -17,6 +18,9 @@ public class Song {
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
+
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> trackData;
 
     @OneToMany(mappedBy = "song")
     List<PlaylistSong> playlistSongs;

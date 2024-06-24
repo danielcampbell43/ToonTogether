@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Track Details</title>
+</head>
+<body>
+<h1>Track Details</h1>
+<div th:if="${track}">
+    <p><strong>Name:</strong> <span th:text="${track.name}"></span></p>
+    <p><strong>Artist:</strong> <span th:text="${track.artists[0].name}"></span></p>
+    <p><strong>Album:</strong> <span th:text="${track.album.name}"></span></p>
+    <p><strong>Release Date:</strong> <span th:text="${track.album.releaseDate}"></span></p>
+</div>
+<div th:if="${error}">
+    <p th:text="${error}"></p>
+</div>
+</body>
+</html>
