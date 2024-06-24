@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -59,5 +60,17 @@ public class UserProfileController {
             userRepository.save(user);
         }
         return new RedirectView("/myprofile");
+    }
+
+    @GetMapping("/users/{username}")
+    public String viewUserProfile(@PathVariable("username") String username, Model model) {
+        User profileUser = userRepository.findByUsername(username);
+        if (profileUser == null) {
+            return "redirect:/"; // or handle as a 404 not found
+        }
+        List<Playlist> playlists = playlistRepository.findByOwner(profileUser);
+        model.addAttribute("profileUser", profileUser);
+        model.addAttribute("playlists", playlists);
+        return "user-profile";
     }
 }
