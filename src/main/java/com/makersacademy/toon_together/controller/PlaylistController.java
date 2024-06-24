@@ -76,14 +76,14 @@ public class PlaylistController {
     public RedirectView favouritePlaylist(@RequestParam int id, Authentication auth) {
         User user = userRepository.findByUsername(auth.getName());
         Playlist playlist = playlistRepository.findById(id);
-        Optional<Favourite> playlistFavourite = Optional.ofNullable(favouriteRepository.findFavouriteByPostIdAndUserId(user.getId(), playlist.getId()));
-        if (!playlistFavourite.isPresent()) {
-            Favourite favourite = new Favourite(playlist, user);
-            favouriteRepository.save(favourite);
+        Optional<Favourite> playlistFavourite = Optional.ofNullable(favouriteRepository.findFavouriteByUserIdAndPlaylistId(user.getId(), playlist.getId()));
+        System.out.println(playlistFavourite);
+        if (playlistFavourite.isPresent()) {
+            favouriteRepository.delete(playlistFavourite.get());
+
         }
         else {
-            Favourite favourite = playlistFavourite.get();
-            favouriteRepository.delete(favourite);
+            favouriteRepository.save(new Favourite(playlist, user));
         }
         return new RedirectView("/playlists");
     }
