@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .formLogin() // This is for handling signup
-                .loginPage("/signup") // Specify login page for signup (if separate)
+                .loginPage("/login")
                 .successHandler(customSignUpSuccessHandler)  // Custom success handler for signup
                 .and()
                 .csrf().ignoringAntMatchers("/logout"); // CSRF configuration
