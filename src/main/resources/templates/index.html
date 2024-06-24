@@ -7,8 +7,14 @@
     <link rel="stylesheet" href="/main.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
+
+<!-- Gradient background element -->
+<div class="gradient-bg"></div>
+
 <div th:replace="layout :: header"></div>
 
 <div class="container mt-4 profile-content">
@@ -44,41 +50,56 @@
 
             </div>
 
-            <p>Playlists</p>
-            <ul th:each="playlist: ${playlists}">
-                <li class="playlists" th:text="${playlist.name}" />
-                    <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" />
-                    <span class="owner-name" th:text="${playlist.name}"></span> -
-                    <span class="timestamp" th:text="'Created by ' + ${playlist.owner.username} + ' at ' + ${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></span>
-                    <form class="playlist-del-form" th:id="'delete-form-' + ${playlist.id}" th:action="@{/playlists(id=${playlist.id})}" th:method="delete" th:if="${playlist.owner.id} == ${currentUser.id}" onsubmit="return confirmDelete()">
-                        <input type="hidden" name="_method" value="delete">
-                        <button id="del-playlist" type="submit" class="btn btn-secondary btn-sm">Delete</button>
-                    </form>
-            </ul>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="th-no-wrap">Playlist</th>
+                    <th class="th-no-wrap">Created by</th>
+                    <th class="th-no-wrap">Date added</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="playlist: ${playlists}">
+                    <td class="td-no-wrap" th:text="${playlist.name}"></td>
+<!--                    <td class="td-no-wrap" th:text="${playlist.owner.username}"><img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /></td>-->
+                    <td class="td-no-wrap"> <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /> <span th:text="${playlist.owner.username}"></span> </td>
+                    <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
+                    <td>
+                        <form th:id="'delete-form-' + ${playlist.id}"
+                              th:action="@{/playlists(id=${playlist.id})}"
+                              th:method="delete"
+                              th:if="${playlist.owner.id} == ${currentUser.id}"
+                              onsubmit="return confirmDelete()">
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-
-    <!-- Pagination controls -->
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                <a class="page-link" th:href="@{/playlists(page=${currentPage - 1}, size=${10})}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
-                <a class="page-link" th:href="@{/playlists(page=${i}, size=${10})}" th:text="${i + 1}">1</a>
-            </li>
-            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                <a class="page-link" th:href="@{/playlists(page=${currentPage + 1}, size=${10})}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+            <!-- Pagination controls -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link" th:href="@{/playlists(page=${currentPage - 1}, size=${10})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link" th:href="@{/playlists(page=${i}, size=${10})}" th:text="${i + 1}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                        <a class="page-link" th:href="@{/playlists(page=${currentPage + 1}, size=${10})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-     </div>
+    </div>
     <div th:replace="layout :: footer"></div>
-</div>
 
     <!-- Playlist deletion confirmation message -->
     <script>
