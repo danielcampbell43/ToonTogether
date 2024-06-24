@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Entity
+@Entity()
 @Table(name = "playlists")
 @NoArgsConstructor
 public class Playlist {
@@ -32,9 +33,16 @@ public class Playlist {
     @OneToMany(mappedBy = "playlist")
     List<PlaylistSong> playlistSongs;
 
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Favourite> favouritePlaylist;
+
     public Playlist(User owner, String name, java.sql.Timestamp createdAt) {
         this.owner = owner;
         this.name = name;
         this.createdAt = createdAt;
+    }
+
+    public boolean containsUser(String username) {
+        return favouritePlaylist.stream().anyMatch(favourite -> favourite.getUser().getUsername().equals(username));
     }
 }

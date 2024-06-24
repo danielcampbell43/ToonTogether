@@ -56,7 +56,8 @@
                     <th class="th-no-wrap">Playlist</th>
                     <th class="th-no-wrap">Created by</th>
                     <th class="th-no-wrap">Date added</th>
-                    <th>Action</th>
+                    <th>Favourite</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -65,6 +66,14 @@
 <!--                    <td class="td-no-wrap" th:text="${playlist.owner.username}"><img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /></td>-->
                     <td class="td-no-wrap"> <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /> <span th:text="${playlist.owner.username}"></span> </td>
                     <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
+                    <td>
+                        <form th:id="'favourite-form-' + ${playlist.id}" th:action="@{/playlist/favourite(id=${playlist.id})}" th:method="post">
+                            <button type="submit"
+                                    class="btn btn-secondary btn-sm"
+                                    th:text="${playlist.containsUser(#authentication.getPrincipal().getUsername()) ? 'Unfavourite' : 'Favourite'}">
+                            </button>
+                        </form>
+                    </td>
                     <td>
                         <form th:id="'delete-form-' + ${playlist.id}"
                               th:action="@{/playlists(id=${playlist.id})}"
@@ -116,5 +125,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-</body>
+</div></body>
 </html>

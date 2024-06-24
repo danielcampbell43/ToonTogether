@@ -1,8 +1,10 @@
 package com.makersacademy.toon_together.controller;
 
+import com.makersacademy.toon_together.model.Favourite;
 import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.User;
 import com.makersacademy.toon_together.repository.AuthoritiesRepository;
+import com.makersacademy.toon_together.repository.FavouriteRepository;
 import com.makersacademy.toon_together.repository.PlaylistRepository;
 import com.makersacademy.toon_together.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 public class PlaylistController {
     @Autowired
@@ -22,7 +27,8 @@ public class PlaylistController {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    AuthoritiesRepository authoritiesRepository;
+    FavouriteRepository favouriteRepository;
+
 
     @GetMapping("/playlists")
     public String index(@RequestParam(value = "search", required = false) String search, Model model, Authentication auth,
@@ -62,6 +68,22 @@ public class PlaylistController {
         Playlist playlist = playlistRepository.findById(id);
         if (user.getId() == playlist.getOwner().getId()) {
             playlistRepository.deleteById(id);
+        }
+        return new RedirectView("/playlists");
+    }
+
+    @PostMapping("/playlist/favourite")
+    public RedirectView favouritePlaylist(@RequestParam int id, Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName());
+        Playlist playlist = playlistRepository.findById(id);
+        Optional<Favourite> playlistFavourite = Optional.ofNullable(favouriteRepository.findFavouriteByUserIdAndPlaylistId(user.getId(), playlist.getId()));
+        System.out.println(playlistFavourite);
+        if (playlistFavourite.isPresent()) {
+            favouriteRepository.delete(playlistFavourite.get());
+
+        }
+        else {
+            favouriteRepository.save(new Favourite(playlist, user));
         }
         return new RedirectView("/playlists");
     }

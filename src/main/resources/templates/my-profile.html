@@ -66,6 +66,22 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <!-- Users favourites -->
+        <div class="col-md-6">
+            <div sec:authorize="isAuthenticated()">
+                <h3>Your favourite playlists: </h3>
+                <ul th:each="favourite: ${favourites}">
+                    <li class="playlists" th:text="${favourite.name}" />
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <div th:replace="layout :: footer"></div>
 
     <!-- Playlist deletion confirmation message -->
