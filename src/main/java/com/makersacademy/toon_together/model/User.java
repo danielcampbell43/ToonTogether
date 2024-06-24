@@ -5,6 +5,11 @@ import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.Boolean.TRUE;
 
 @Data
@@ -25,6 +30,9 @@ public class User {
     @CreationTimestamp
     private java.sql.Timestamp createdAt;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Favourite> userFavourites;
+
     public User() {
         this.enabled = TRUE;
     }
@@ -43,5 +51,11 @@ public class User {
         this.enabled = enabled;
         this.profilePicture = profilePicture;
         this.createdAt = createdAt;
+    }
+
+    public List<Integer> getFavouritePlaylists() {
+        return userFavourites.stream()
+                .map(favourite -> favourite.getPlaylist().getId())
+                .collect(Collectors.toList());
     }
 }

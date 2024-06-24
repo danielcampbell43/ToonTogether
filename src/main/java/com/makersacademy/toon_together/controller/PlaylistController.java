@@ -1,9 +1,11 @@
 package com.makersacademy.toon_together.controller;
 
+import com.makersacademy.toon_together.model.Favourite;
 import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.User;
 import com.makersacademy.toon_together.model.Collaborator;
 import com.makersacademy.toon_together.repository.AuthoritiesRepository;
+import com.makersacademy.toon_together.repository.FavouriteRepository;
 import com.makersacademy.toon_together.repository.PlaylistRepository;
 import com.makersacademy.toon_together.repository.UserRepository;
 import com.makersacademy.toon_together.repository.CollaboratorRepository;
@@ -20,6 +22,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDateTime;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 public class PlaylistController {
     @Autowired
@@ -27,9 +32,9 @@ public class PlaylistController {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    AuthoritiesRepository authoritiesRepository;
+    CollaboratorRepository collaboratorRepository;
     @Autowired
-    private CollaboratorRepository collaboratorRepository;
+    FavouriteRepository favouriteRepository;
 
     @GetMapping("/playlists")
     public String index(@RequestParam(value = "search", required = false) String search, Model model, Authentication auth,
@@ -72,6 +77,7 @@ public class PlaylistController {
         }
         return new RedirectView("/playlists");
     }
+  
     @PostMapping("/addCollaborator")
     public String addCollaborator(@RequestParam("playlistId") int playlistId,
                                   @RequestParam("collaboratorUsername") String collaboratorUsername,
@@ -104,5 +110,19 @@ public class PlaylistController {
         collaboratorRepository.save(newCollaborator);
 
         return "redirect:/playlists";
+      }
+
+    @PostMapping("/playlist/favourite")
+    public RedirectView favouritePlaylist(@RequestParam int id, Authentication auth) {
+        User user = userRepository.findByUsername(auth.getName());
+        Playlist playlist = playlistRepository.findById(id);
+        Optional<Favourite> playlistFavourite = Optional.ofNullable(favouriteRepository.findFavouriteByUserIdAndPlaylistId(user.getId(), playlist.getId()));
+        if (playlistFavourite.isPresent()) {
+            favouriteRepository.delete(playlistFavourite.get());
+        }
+        else {
+            favouriteRepository.save(new Favourite(playlist, user));
+        }
+        return new RedirectView("/playlists");
     }
 }
