@@ -62,7 +62,13 @@
                 <tbody>
                 <tr th:each="playlist: ${playlists}">
                     <td class="td-no-wrap" th:text="${playlist.name}"></td>
-                    <td class="td-no-wrap"> <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /> <a th:href="@{/users/{username}(username=${playlist.owner.username})}" th:text="${playlist.owner.username}"></a></td>
+                    <td class="td-no-wrap"> <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" />
+                        <a th:if="${playlist.owner.username == currentUser.username}"
+                           th:href="@{/myprofile}"
+                           th:text="${playlist.owner.username}"></a>
+                        <a th:unless="${playlist.owner.username == currentUser.username}"
+                           th:href="@{/users/{username}(username=${playlist.owner.username})}"
+                           th:text="${playlist.owner.username}"></a></td>
                     <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
                     <td>
                         <form th:id="'delete-form-' + ${playlist.id}"
