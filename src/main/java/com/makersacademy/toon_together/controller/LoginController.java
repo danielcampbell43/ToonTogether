@@ -18,18 +18,18 @@ public class LoginController {
     public String login(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         String logoutMessage = (String) session.getAttribute("logoutMessage");
-        String signupSuccessMessage = (String) session.getAttribute("signupSuccessMessage");
+//        String signupSuccessMessage = (String) session.getAttribute("signupSuccessMessage");
 
         if (logoutMessage != null) {
             model.addAttribute("logoutMessage", logoutMessage);
             session.removeAttribute("logoutMessage");
         }
 
-        if (signupSuccessMessage != null) {
-            model.addAttribute("signupSuccessMessage", signupSuccessMessage);
-            session.removeAttribute("signupSuccessMessage");
-            logger.info("Signup success message retrieved from session: " + signupSuccessMessage);
-        }
+//        if (signupSuccessMessage != null) {
+//            model.addAttribute("signupSuccessMessage", signupSuccessMessage);
+//            session.removeAttribute("signupSuccessMessage");
+//            logger.info("Signup success message retrieved from session: " + signupSuccessMessage);
+//        }
 
         return "login";
     }

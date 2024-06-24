@@ -2,7 +2,7 @@ package com.makersacademy.toon_together;
 
 import com.makersacademy.toon_together.handler.CustomLoginSuccessHandler;
 import com.makersacademy.toon_together.handler.CustomLogoutSuccessHandler;
-import com.makersacademy.toon_together.handler.CustomSignUpSuccessHandler;
+//import com.makersacademy.toon_together.handler.CustomSignUpSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,8 +20,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
-    @Autowired
-    CustomSignUpSuccessHandler customSignUpSuccessHandler;
+//    @Autowired
+//    CustomSignUpSuccessHandler customSignUpSuccessHandler;
 
     @Autowired
     CustomLoginSuccessHandler customLoginSuccessHandler;
@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin() // This is for handling signup
                 .loginPage("/login")
-                .successHandler(customSignUpSuccessHandler)  // Custom success handler for signup
+//                .successHandler(customSignUpSuccessHandler)  // Custom success handler for signup
                 .and()
                 .csrf().ignoringAntMatchers("/logout"); // CSRF configuration
     }
