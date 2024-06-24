@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Entity
+@Entity()
 @Table(name = "playlists")
 @NoArgsConstructor
 public class Playlist {
@@ -34,7 +34,7 @@ public class Playlist {
     List<PlaylistSong> playlistSongs;
 
     @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Favourite> favourites = new ArrayList<>();
+    private List<Favourite> favouritePlaylist;
 
     public Playlist(User owner, String name, java.sql.Timestamp createdAt) {
         this.owner = owner;
@@ -43,6 +43,6 @@ public class Playlist {
     }
 
     public boolean containsUser(String username) {
-        return favourites.stream().anyMatch(favourite -> favourite.getUser().getUsername().equals(username));
+        return favouritePlaylist.stream().anyMatch(favourite -> favourite.getUser().getUsername().equals(username));
     }
 }
