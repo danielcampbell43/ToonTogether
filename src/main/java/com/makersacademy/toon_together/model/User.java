@@ -33,6 +33,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Favourite> userFavourites;
 
+    @javax.persistence.Transient private String friend_status;
+
     public User() {
         this.enabled = TRUE;
     }
