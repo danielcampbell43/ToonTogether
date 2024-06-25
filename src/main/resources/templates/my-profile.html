@@ -16,7 +16,7 @@
 <div class="text-center my-4">
     <img th:src="@{${user.profilePicture}}" alt="profile-picture" class="circular-img" id="profile-picture" />
     <h1><span sec:authentication="name"></span>'s Profile</h1>
-    <button id="post_image_upload_widget" class="btn btn-primary cloudinary-button">Change Profile Picture</button>
+    <button id="post_image_upload_widget" class="search-submit btn btn-primary cloudinary-button">Change Profile Picture</button>
 </div>
 
 <!-- Hidden form to submit the profile picture URL -->
@@ -47,19 +47,19 @@
             <div class="container">
                 <h3>Add a Song</h3>
                 <!-- Choose which playlist you want the song to be added to -->
-                <div class="form-group">
+                <div class="form-container">
                     <label for="playlist-select">Select Playlist:</label>
                     <select id="playlist-select" name="playlistId" class="form-control" required>
                         <option value="" disabled selected>Select a playlist</option>
                         <option th:each="playlist : ${playlists}" th:value="${playlist.id}" th:text="${playlist.name}"></option>
                     </select>
                 </div>
-                <form>
+                <form class="form-container">
                     <!-- Simulated CSRF token -->
                     <input type="hidden" name="_csrf" value="dummyCsrfToken">
                     <!-- Simulated Thymeleaf value -->
                     <input type="hidden" name="playlistId" value="1">
-                    <input type="text" name="songName" placeholder="Enter song name" required>
+                    <input class="search form-control" type="text" name="songName" placeholder="Enter song name" required>
                     <button type="submit" class="btn btn-primary">Add Song</button>
                 </form>
             </div>

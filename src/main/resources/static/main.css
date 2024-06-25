@@ -6,6 +6,17 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
     font-family: 'Open Sans', sans-serif;
 }
 
+/* Style for h1 to display white text */
+h1 {
+    color: white; /* Set the text color to white */
+}
+
+h2 {
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
 .playlist-list {
     margin-bottom: 20px; /* Add margin between the two sections */
     }
@@ -140,6 +151,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
         }
         .form-container label {
             font-weight: 600;
+            margin-top: 20px;
         }
         .form-container .form-control {
             border-radius: 8px;
@@ -169,6 +181,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
         .form-container .btn-secondary:hover {
             background-color: #5a6268;
         }
+
 .search-submit.btn {
             font-weight: 600;
             border-radius: 8px;
@@ -191,6 +204,24 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
         }
 .search.label {
             font-weight: 600;
+        }
+.login-submit.btn {
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+.login-submit.btn-primary {
+            background-color: #86c5d1;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+.login-submit.btn-primary:hover {
+            background-color: #7354e0;
+        }
+.center-container {
+            justify-content: center;
+            align-items: center;
         }
 
 /* Enhance table appearance */
@@ -233,4 +264,50 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
 .btn-danger:hover {
     background-color: #c82333;
     border-color: #bd2130;
+}
+
+/* Change link color in table */
+.table a {
+    color: #000000; /* Set your desired color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.table a:hover {
+    color: #86c5d1; /* Set your desired hover color */
+    text-decoration: underline; /* Optional: Add underline on hover */
+}
+
+/* Pagination styling */
+.pagination {
+    justify-content: center; /* Center the pagination controls */
+    margin-top: 20px; /* Add some space above the pagination */
+}
+
+.pagination .page-item .page-link {
+    color: #000000; /* Default color */
+    border-radius: 8px; /* Rounded corners */
+    margin: 0 5px; /* Space between the buttons */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #86c5d1; /* Active background color */
+    border-color: #86c5d1; /* Active border color */
+    color: #fff; /* Active text color */
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #7354e0; /* Hover background color */
+    color: #fff; /* Hover text color */
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #000000; /* Disabled text color */
+    background-color: #e9ecef; /* Disabled background color */
+    border-color: #dee2e6; /* Disabled border color */
+}
+
+.pagination .page-item .page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus outline */
 }

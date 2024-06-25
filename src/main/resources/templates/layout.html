@@ -31,12 +31,25 @@
                 </ul>
             </div>
             <div class="d-flex align-items-center logout-container">
-                <a id="logout-button" class="btn btn-light button-8" href="/logout">Logout</a>
+                <a id="login-button" th:if="${#httpServletRequest.remoteUser == null}" class="btn btn-light button-8" href="/login">Login</a>
+                <a id="logout-button" th:if="${#httpServletRequest.remoteUser != null}" class="btn btn-light button-8" href="/logout">Logout</a>
             </div>
         </div>
     </nav>
 </header>
 
+<ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
 
 <!-- Main content goes here -->
 <div class="container">
