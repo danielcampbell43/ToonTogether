@@ -2,7 +2,6 @@ package com.makersacademy.toon_together.model;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-import com.makersacademy.toon_together.controller.SpotifyController;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -15,11 +14,13 @@ public class PlaylistSong {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "playlist_id")
-    private int playlistId;
+    @ManyToOne
+    @JoinColumn(name = "playlist_id")
+    private Playlist playlist;
 
-    @Column(name = "song_id")
-    private String songId;
+    @ManyToOne
+    @JoinColumn(name = "song_id")
+    private Song song;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -30,8 +31,8 @@ public class PlaylistSong {
         // Default constructor needed by JPA
     }
 
-    public PlaylistSong(int playlistId, String songId) {
-        this.playlistId = playlistId;
-        this.songId = songId;
+    public PlaylistSong(Playlist playlist, Song song) {
+        this.playlist = playlist;
+        this.song = song;
     }
 }

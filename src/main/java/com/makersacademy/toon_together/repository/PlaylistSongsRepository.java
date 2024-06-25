@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PlaylistSongsRepository extends CrudRepository<PlaylistSong, String> {
+public interface PlaylistSongsRepository extends CrudRepository<PlaylistSong, Integer> {
 }

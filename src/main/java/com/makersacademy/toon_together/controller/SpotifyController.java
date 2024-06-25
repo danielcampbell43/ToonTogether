@@ -1,8 +1,10 @@
 package com.makersacademy.toon_together.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.PlaylistSong;
 import com.makersacademy.toon_together.model.Song;
+import com.makersacademy.toon_together.repository.PlaylistRepository;
 import com.makersacademy.toon_together.repository.PlaylistSongsRepository;
 import com.makersacademy.toon_together.repository.SongRepository;
 import com.makersacademy.toon_together.service.SpotifyService;
@@ -30,6 +32,9 @@ public class SpotifyController {
     private SongRepository songRepository;
 
     @Autowired
+    private PlaylistRepository playlistRepository;
+
+    @Autowired
     private PlaylistSongsRepository playlistSongRepository;
 
     // Handle form submission
@@ -55,18 +60,21 @@ public class SpotifyController {
                     track.getAlbum().getImages()[0].getUrl()
             );
 
-            System.out.println(playlistId); //Strings
-            System.out.println(track.getId()); // Strings
+            Playlist playlist = playlistRepository.findById(Integer.parseInt(playlistId));
+
+//            System.out.println(playlistId); //Strings
+//            System.out.println(track.getId()); // Strings
+
+            songRepository.save(song);
 
             PlaylistSong playlistSong = new PlaylistSong(
-                    Integer.parseInt(playlistId),
-                    track.getId()
+                    playlist,
+                    song
             );
 
             playlistSongRepository.save(playlistSong);
 
 
-            songRepository.save(song);
 
             return "termsandconditions";
         } catch (IOException | SpotifyWebApiException | ParseException e) {
