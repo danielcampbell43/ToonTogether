@@ -5,19 +5,22 @@
     <meta charset="UTF-8">
     <title>Layout</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
 
 </head>
 <body>
 <div class="gradient-bg"></div>
 <header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg" style="background-color: transparent;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">ToonTogether</a>
+            <a class="navbar-brand" href="/">
+                <img th:src="@{/logo.png}" alt="ToonTogether Logo" style="height: 70px;">
+            </a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="/">Playlists</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/myprofile">My Profile</a>
@@ -30,14 +33,13 @@
                     </li>
                 </ul>
             </div>
-            <div class="d-flex align-items-center">
-                    <span class="mr-2">Hello <span sec:authentication="name"></span></span>
-                <a id="logout-button" class="btn btn-light button-8" href="/logout">Logout</a>
+            <div class="d-flex align-items-center logout-container">
+                <a id="login-button" th:if="${#httpServletRequest.remoteUser == null}" class="btn btn-light button-8" href="/login">Login</a>
+                <a id="logout-button" th:if="${#httpServletRequest.remoteUser != null}" class="btn btn-light button-8" href="/logout">Logout</a>
             </div>
         </div>
     </nav>
 </header>
-
 
 <!-- Main content goes here -->
 <div class="container">

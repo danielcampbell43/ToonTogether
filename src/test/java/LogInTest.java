@@ -43,9 +43,9 @@ public class LogInTest {
         driver.findElement(By.id("username")).sendKeys(details);
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.tagName("button")).click();
-        WebElement header = driver.findElement(By.tagName("h1"));
+        WebElement header = driver.findElement(By.tagName("p"));
         String titleAsStr = header.getText();
-        Assert.assertEquals("Welcome", titleAsStr);
+        Assert.assertEquals("Create a playlist", titleAsStr);
     }
 }
 

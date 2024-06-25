@@ -8,38 +8,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div th:replace="layout :: header"></div>
 <div class="gradient-bg"></div>
-<header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">ToonTogether</a>
-        </div>
-    </nav>
-</header>
-
-<!--<div th:if="${signupSuccessMessage}" class="alert alert-success">-->
-<!--    <p th:text="${signupSuccessMessage}"></p>-->
-<!--</div>-->
 
 
 <div class="container">
-    <h2>Login</h2>
     <div th:if="${logoutMessage}" class="alert alert-success" th:text="${logoutMessage}"></div>
     <form th:action="@{/login}" method="post">
-        <div class="form-group">
+        <div class="form-container">
+            <h2>Login</h2>
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
-        </div>
-        <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+            <button type="submit" class="login-submit btn btn-primary">Login</button>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+
+
     </form>
 </div>
 <div class="container">
-    <h2>Not already tooning with us?</h2>
-    <form action="/users/new" method="get" aria-label="Sign up form">
+    <form class="form-container" action="/users/new" method="get" aria-label="Sign up form">
+        <h2>Not already tooning with us?</h2>
         <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
 </div>
