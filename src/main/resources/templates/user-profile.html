@@ -15,7 +15,6 @@
 <div class="text-center my-4">
     <img th:src="@{${profileUser.profilePicture}}" alt="profile-picture" width="200" height="200" class="rounded-circle"/>
     <h1><span th:text="${profileUser.username}"></span>'s Profile</h1>
-    <h2><span th:text="${profileUser.friend_status}"></span></h2>
 </div>
 
 <div th:switch="${profileUser.friend_status}" class="add-remove-friend">
