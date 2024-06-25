@@ -72,8 +72,13 @@
                 <tbody>
                 <tr th:each="playlist: ${playlists}">
                     <td class="td-no-wrap" th:text="${playlist.name}"></td>
-                    <!--                    <td class="td-no-wrap" th:text="${playlist.owner.username}"><img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /></td>-->
-                    <td class="td-no-wrap"> <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" /> <span th:text="${playlist.owner.username}"></span> </td>
+                    <td class="td-no-wrap"> <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" />
+                        <a th:if="${playlist.owner.username == currentUser.username}"
+                           th:href="@{/myprofile}"
+                           th:text="${playlist.owner.username}"></a>
+                        <a th:unless="${playlist.owner.username == currentUser.username}"
+                           th:href="@{/users/{username}(username=${playlist.owner.username})}"
+                           th:text="${playlist.owner.username}"></a></td>
                     <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
                     <td>
                         <form th:id="'favourite-form-' + ${playlist.id}" th:action="@{/playlist/favourite(id=${playlist.id})}" th:method="post">
@@ -127,6 +132,7 @@
                 </tr>
                 </tbody>
             </table>
+
             <!-- Pagination controls -->
             <nav aria-label="Page navigation">
                 <ul class="pagination">
