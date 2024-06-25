@@ -1,6 +1,6 @@
 # ToonTogether
 
-This is a java/springboot project to be developed on.  There's a video tour of the application [here](https://youtu.be/L1Zi9WOJ6xg) but you should read through these docs first.
+Toon together is 
 
 The application uses:
   - `maven` to build the project
@@ -46,12 +46,6 @@ Selenium uses Chromedriver to interact with the Chrome browser. If you're on a M
 
 Your Mac might refuse to open Chromedriver because it's from an unidentified developer. If you see a popup at that point, dismiss it by selecting `Cancel`, then go to `System Preferences`, `Security and Privacy`, `General`. You should see a message telling you that Chromedriver was blocked and, if so, there will be an `Open Anyway` button. Click that and then re-try your tests.
 
-## Existing features
-
-This app already has a few basic features
-* A user can sign up at `/users/new`
-* A signed up user can sign in at `/login`
-* A signed in user can sign out at `/logout`
 
 ## Design
 

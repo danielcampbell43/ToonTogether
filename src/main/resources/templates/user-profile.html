@@ -56,12 +56,29 @@
     <div class="row">
         <!-- User's playlists -->
         <div class="col-md-6">
-            <div>
+
                 <h3>Playlists:</h3>
-                <ul th:each="playlist : ${playlists}">
-                    <li th:text="${playlist.name}"></li>
-                </ul>
-            </div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="th-no-wrap">Playlist</th>
+                        <th class="th-no-wrap">Created by</th>
+                        <th class="th-no-wrap">Date added</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="playlist: ${playlists}">
+                        <td class="td-no-wrap" th:text="${playlist.name}"></td>
+                        <td class="td-no-wrap">
+                               <span th:text="${profileUser.username}"></span>
+                        </td>
+                        <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+<!--                <ul th:each="playlist : ${playlists}">-->
+<!--                    <li th:text="${playlist.name}"></li>-->
+<!--                </ul>-->
         </div>
     </div>
 </div>
