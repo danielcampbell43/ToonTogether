@@ -13,13 +13,18 @@
     <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">ToonTogether</a>
-
         </div>
     </nav>
 </header>
 
+<!--<div th:if="${signupSuccessMessage}" class="alert alert-success">-->
+<!--    <p th:text="${signupSuccessMessage}"></p>-->
+<!--</div>-->
+
+
 <div class="container">
     <h2>Login</h2>
+    <div th:if="${logoutMessage}" class="alert alert-success" th:text="${logoutMessage}"></div>
     <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="username">Username</label>

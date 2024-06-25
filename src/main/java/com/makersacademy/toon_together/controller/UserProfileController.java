@@ -3,6 +3,7 @@ package com.makersacademy.toon_together.controller;
 import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.User;
 import com.makersacademy.toon_together.repository.AuthoritiesRepository;
+import com.makersacademy.toon_together.repository.FavouriteRepository;
 import com.makersacademy.toon_together.repository.PlaylistRepository;
 import com.makersacademy.toon_together.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserProfileController {
@@ -34,6 +38,9 @@ public class UserProfileController {
             Iterable<Playlist> playlists = playlistRepository.findByOwner(userRepository.findByUsername(username));
             model.addAttribute("playlists", playlists);
             model.addAttribute("user", user);
+            model.addAttribute("favourites", user.getFavouritePlaylists().stream()
+                    .map(i -> playlistRepository.findById(i).orElse(null))
+                    .collect(Collectors.toList()));
         } else {
             model.addAttribute("playlists", null);
         }
@@ -59,5 +66,17 @@ public class UserProfileController {
             userRepository.save(user);
         }
         return new RedirectView("/myprofile");
+    }
+
+    @GetMapping("/users/{username}")
+    public String viewUserProfile(@PathVariable("username") String username, Model model) {
+        User profileUser = userRepository.findByUsername(username);
+        if (profileUser == null) {
+            return "redirect:/"; // or handle as a 404 not found
+        }
+        List<Playlist> playlists = playlistRepository.findByOwner(profileUser);
+        model.addAttribute("profileUser", profileUser);
+        model.addAttribute("playlists", playlists);
+        return "user-profile";
     }
 }

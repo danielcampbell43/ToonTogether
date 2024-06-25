@@ -34,6 +34,7 @@ public class SpotifyService {
         return getTrackRequest.executeAsync();
     }
 
+
     public Track searchTrackByName(String trackName) throws IOException, SpotifyWebApiException, ParseException {
         SearchTracksRequest searchTracksRequest = spotifyApi.searchTracks(trackName).build();
         Paging<Track> trackPaging = searchTracksRequest.execute();
@@ -44,3 +45,4 @@ public class SpotifyService {
         }
     }
 }
+
