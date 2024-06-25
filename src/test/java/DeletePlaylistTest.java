@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -45,6 +47,7 @@ public class DeletePlaylistTest {
         driver.findElement(By.id("playlist-name")).sendKeys(playlistName);
         driver.findElement(By.id("playlist-name-submit")).click();
     }
+
     @After
     public void tearDown() {
         driver.quit();
@@ -52,21 +55,44 @@ public class DeletePlaylistTest {
 
     @Test
     public void successfulDeletePlaylist() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table/tbody/tr")));
-        List<WebElement> listItems = driver.findElements(By.xpath("//table/tbody/tr"));
-        WebElement firstListItem = listItems.stream()
-                .filter(item -> item.findElement(By.xpath(".//td[1]")).getText().equals(playlistName))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Playlist not found."));
-        WebElement deleteButton = firstListItem.findElement(By.xpath(".//form/button")); // click the delete button
-        wait.until(ExpectedConditions.elementToBeClickable(deleteButton)).click();
-        driver.switchTo().alert().accept(); // accept the confirmation alert
-        wait.until(ExpectedConditions.stalenessOf(firstListItem));
-        listItems = driver.findElements(By.xpath("//table/tbody/tr")); // to verify the playlist is deleted
-        for (WebElement webEl : listItems) {
-            WebElement playlistNameElement = webEl.findElement(By.xpath(".//td[1]"));
-            assertNotEquals(playlistName, playlistNameElement.getText());
+        // Navigate to the playlists page
+        driver.get("http://localhost:8080/playlists");
+        WebElement playlistRow = findPlaylistRow(playlistName); // Find the playlist row that contains the playlist we created
+        assertNotNull("Playlist row should not be null", playlistRow); // playlist row is found
+        // the delete button in the playlist row and click
+        try {
+            WebElement deleteButton = driver.findElement(By.xpath(".//td/form/button[text()='Delete']"));
+            deleteButton.click();
+        } catch (NoSuchElementException e) {
+            fail("Delete button not found in playlist row");
         }
+        Alert alert = driver.switchTo().alert(); // Handle the confirmation dialog (if any)
+        alert.accept();
+        WebDriverWait wait = new WebDriverWait(driver, 10); // Wwwit for the page to reload after deletion
+        wait.until(ExpectedConditions.urlContains("/playlists"));
+        assertFalse("Playlist should not exist after deletion", // check that the playlist no longer exists in the list
+                isPlaylistPresent(playlistName));
+    }
+
+    private WebElement findPlaylistRow(String playlistName) {
+        List<WebElement> playlistRows = driver.findElements(By.xpath("//table[@class='table table-hover']/tbody/tr"));
+        for (WebElement row : playlistRows) {
+            WebElement playlistNameElement = row.findElement(By.xpath(".//td[@class='td-no-wrap']"));
+            if (playlistNameElement.getText().equals(playlistName)) {
+                return row;
+            }
+        }
+        return null;
+    }
+
+    private boolean isPlaylistPresent(String playlistName) {
+        List<WebElement> playlistRows = driver.findElements(By.xpath("//table[@class='table table-hover']/tbody/tr"));
+        for (WebElement row : playlistRows) {
+            WebElement playlistNameElement = row.findElement(By.xpath(".//td[@class='td-no-wrap']"));
+            if (playlistNameElement.getText().equals(playlistName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
