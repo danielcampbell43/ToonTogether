@@ -15,6 +15,41 @@
 <div class="text-center my-4">
     <img th:src="@{${profileUser.profilePicture}}" alt="profile-picture" width="200" height="200" class="rounded-circle"/>
     <h1><span th:text="${profileUser.username}"></span>'s Profile</h1>
+    <h2><span th:text="${profileUser.friend_status}"></span></h2>
+</div>
+
+<div th:switch="${profileUser.friend_status}" class="add-remove-friend">
+    <form th:case="'Friend'" th:action="@{/friends/delete}" method="post">
+        <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+        <button type="submit">Remove Friend</button>
+    </form>
+    <form th:case="'Sent'" th:action="@{/friends/delete}" method="post">
+        <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+        <button type="submit">Cancel Friend Request</button>
+    </form>
+    <div th:case="'Received'">
+        <form th:action="@{/friends/confirm}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Confirm Friend Request</button>
+        </form>
+        <form th:action="@{/friends/delete}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Deny Friend Request</button>
+        </form>
+    </div>
+
+    <form th:case="'None'" th:action="@{/friends/add}" method="post">
+        <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+        <button type="submit">Add Friend</button>
+    </form>
+    <p th:case="*">
+        You cannot be friends with this user
+    </p>
 </div>
 
 <div class="container">

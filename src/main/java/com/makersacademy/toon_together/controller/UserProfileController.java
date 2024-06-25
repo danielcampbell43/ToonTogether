@@ -1,11 +1,9 @@
 package com.makersacademy.toon_together.controller;
 
+import com.makersacademy.toon_together.model.Friend;
 import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.User;
-import com.makersacademy.toon_together.repository.AuthoritiesRepository;
-import com.makersacademy.toon_together.repository.FavouriteRepository;
-import com.makersacademy.toon_together.repository.PlaylistRepository;
-import com.makersacademy.toon_together.repository.UserRepository;
+import com.makersacademy.toon_together.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,6 +26,28 @@ public class UserProfileController {
     PlaylistRepository playlistRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    FriendRepository friendRepository;
+
+    public ArrayList<User> getFriends(User sessionUser) {
+        List<Friend> received = friendRepository.findAllByRecipient(sessionUser);
+        List<Friend> sent = friendRepository.findAllBySender(sessionUser);
+
+        ArrayList<User> friends = new ArrayList<>();
+        for (Friend connection: received) {
+            friends.add(connection.getSender());
+        }
+
+        for (Friend connection: sent) {
+            friends.add(connection.getRecipient());
+        }
+
+        return friends;
+    }
+
+    public void setFriendStatus(User sessionUser, User otherUser) {
+            otherUser.setFriend_status(FriendsController.GetFriendStatus(sessionUser, otherUser, friendRepository));
+    }
 
 
     @RequestMapping(value = "/myprofile")
@@ -54,7 +74,6 @@ public class UserProfileController {
         if (user.getId() == playlist.getOwner().getId()) {
             playlistRepository.deleteById(id);
         }
-//        maybe want to add some sort of pop-up saying you can delete a playlist that isn't yours
         return new RedirectView("/myprofile");
     }
 
@@ -69,14 +88,30 @@ public class UserProfileController {
     }
 
     @GetMapping("/users/{username}")
-    public String viewUserProfile(@PathVariable("username") String username, Model model) {
+    public String viewUserProfile(@PathVariable("username") String username, Model model, Authentication auth) {
         User profileUser = userRepository.findByUsername(username);
+        User sessionUser = userRepository.findByUsername(auth.getName());
         if (profileUser == null) {
             return "redirect:/"; // or handle as a 404 not found
         }
+        setFriendStatus(sessionUser, profileUser);
         List<Playlist> playlists = playlistRepository.findByOwner(profileUser);
         model.addAttribute("profileUser", profileUser);
         model.addAttribute("playlists", playlists);
         return "user-profile";
+    }
+
+    @GetMapping("/users/friends")
+    public String seeUserFriends(Model model, Authentication auth) {
+        User sessionUser = userRepository.findByUsername(auth.getName());
+
+        ArrayList<User> friends = getFriends(sessionUser);
+        for (User friend : friends) {
+            setFriendStatus(sessionUser, friend);
+        }
+
+        model.addAttribute("sessionUser", sessionUser);
+        model.addAttribute("friends", friends);
+        return "user-friend-index";
     }
 }
