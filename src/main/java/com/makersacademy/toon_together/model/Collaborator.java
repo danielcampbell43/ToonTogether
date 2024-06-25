@@ -35,6 +35,10 @@ public class Collaborator {
         this.deleter = false;
     }
 
+    // default constructor for Hibernate and Lombok
+    public Collaborator() {
+    }
+
     public Collaborator(User user, Playlist playlist, Boolean deleter) {
         this.user = user;
         this.playlist = playlist;

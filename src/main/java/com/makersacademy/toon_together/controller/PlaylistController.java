@@ -68,11 +68,14 @@ public class PlaylistController {
         return new RedirectView("/playlists");
     }
 
+    @Transactional
     @DeleteMapping("/playlists")
     public RedirectView delete(@RequestParam int id, Authentication auth) {
         User user = userRepository.findByUsername(auth.getName());
         Playlist playlist = playlistRepository.findById(id);
         if (user.getId() == playlist.getOwner().getId()) {
+            List<Collaborator> collaborators = collaboratorRepository.findByPlaylist(playlist);
+            collaboratorRepository.deleteAll(collaborators); // delete all collaborators associated with playlist
             playlistRepository.deleteById(id);
         }
         return new RedirectView("/playlists");
