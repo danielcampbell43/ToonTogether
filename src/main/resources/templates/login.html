@@ -11,7 +11,9 @@
 <div th:replace="layout :: header"></div>
 <div class="gradient-bg"></div>
 
+
 <div class="container">
+    <div th:if="${logoutMessage}" class="alert alert-success" th:text="${logoutMessage}"></div>
     <form th:action="@{/login}" method="post">
         <div class="form-container">
             <h2>Login</h2>

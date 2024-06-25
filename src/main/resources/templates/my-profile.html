@@ -54,18 +54,31 @@
                         <option th:each="playlist : ${playlists}" th:value="${playlist.id}" th:text="${playlist.name}"></option>
                     </select>
                 </div>
-                <form class="form-container">
-                    <!-- Simulated CSRF token -->
-                    <input type="hidden" name="_csrf" value="dummyCsrfToken">
-                    <!-- Simulated Thymeleaf value -->
-                    <input type="hidden" name="playlistId" value="1">
-                    <input class="search form-control" type="text" name="songName" placeholder="Enter song name" required>
+                <form class="form-container" id="add-song-form" th:action="@{/addSong}" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input class="search form-control" type="text" id="songName" name="songName" placeholder="Enter song name" required>
                     <button type="submit" class="btn btn-primary">Add Song</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <!-- Users favourites -->
+        <div class="col-md-6">
+            <div sec:authorize="isAuthenticated()">
+                <h3>Your favourite playlists: </h3>
+                <ul th:each="favourite: ${favourites}">
+                    <li class="playlists" th:text="${favourite.name}" />
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <div th:replace="layout :: footer"></div>
 
     <!-- Playlist deletion confirmation message -->
