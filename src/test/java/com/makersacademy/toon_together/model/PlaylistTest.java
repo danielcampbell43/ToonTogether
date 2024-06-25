@@ -2,9 +2,17 @@ package com.makersacademy.toon_together.model;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.makersacademy.toon_together.controller.HomeController;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.sql.Timestamp;
 public class PlaylistTest {
@@ -33,4 +41,6 @@ public class PlaylistTest {
     public void playlistHasCreatedAt() {
         assertEquals(new Timestamp(10000), playlist.getCreatedAt());
     }
+
+
 }
