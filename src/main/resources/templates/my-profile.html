@@ -42,24 +42,23 @@
             </div>
         </div>
 
-        <!-- A dummy form since we don't have the songs set up on the db yet -->
         <div class="col-md-6">
             <div class="container">
                 <h3>Add a Song</h3>
                 <!-- Choose which playlist you want the song to be added to -->
                 <div class="form-group">
-                    <label for="playlist-select">Select Playlist:</label>
-                    <select id="playlist-select" name="playlistId" class="form-control" required>
-                        <option value="" disabled selected>Select a playlist</option>
-                        <option th:each="playlist : ${playlists}" th:value="${playlist.id}" th:text="${playlist.name}"></option>
-                    </select>
+                    <form id="select-playlist-form" th:action="@{/addSong}" method="post">
+                        <label for="playlist-select">Select Playlist:</label>
+                        <select id="playlist-select" name="playlistId" class="form-control" required>
+                            <option value="" disabled selected>Select a playlist</option>
+                            <option th:each="playlist : ${playlists}" th:value="${playlist.id}" th:text="${playlist.name}"></option>
+                        </select>
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                        <input type="text" id="songName" name="songName" placeholder="Enter song name" required>
+                        <button type="submit" class="btn btn-primary">Add Song</button>
+                    </form>
+
                 </div>
-                <form id="add-song-form" th:action="@{/addSong}" method="post">
-                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                    <input type="text" id="songName" name="songName" placeholder="Enter song name" required>
-                    <button type="submit" class="btn btn-primary">Add Song</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
