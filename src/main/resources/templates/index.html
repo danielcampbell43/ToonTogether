@@ -34,7 +34,7 @@
             </form>
 
             <form th:action="@{/playlists}" method="get">
-                <p>Search playlists: <input type="text" class="search form-control" name="search"/></p>
+                <p class="search label">Search playlists: <input type="text" class="search form-control" name="search"/></p>
                 <p>
                     <input class="search-submit btn btn-primary" type="submit" value="Search"/>
                     <a th:if="${searchQuery != null and !searchQuery.isEmpty()}" th:href="@{/playlists}">Reset</a>
@@ -46,7 +46,7 @@
 
             </div>
 
-            <table class="table table-hover">
+            <table class="table table-hover table-striped table-bordered">
                 <thead>
                 <tr>
                     <th class="th-no-wrap">Playlist</th>
