@@ -18,27 +18,23 @@
 <div th:replace="layout :: header"></div>
 
 <div class="container mt-4 profile-content">
-    <div class="text-center mb-4">
-        <h1>Welcome</h1>
-    </div>
-
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="form col-12">
 
             <form action="#" th:action="@{/playlists}" th:object="${playlist}" method="post" class="mb-4">
-                <div class="form-group">
+                <div class="form-container">
                     <p>Create a playlist</p>
                     <label for="playlist-name">Name:</label>
                     <input id="playlist-name" type="text" th:field="*{name}" class="form-control" placeholder="My favourite songs" required minlength="1"/>
                 </div>
-                <div class="form-group text-center">
+                <div class="form-container text-center">
                     <input id="playlist-name-submit" type="submit" value="Submit" class="btn btn-primary"/>
                     <input type="reset" value="Reset" class="btn btn-secondary"/>
                 </div>
             </form>
 
             <form th:action="@{/playlists}" method="get">
-                <p>Search playlists: <input type="text" name="search"/></p>
+                <p>Search playlists: <input type="text" class="search form-control" name="search"/></p>
                 <p>
                     <input class="search-submit btn btn-primary" type="submit" value="Search"/>
                     <a th:if="${searchQuery != null and !searchQuery.isEmpty()}" th:href="@{/playlists}">Reset</a>

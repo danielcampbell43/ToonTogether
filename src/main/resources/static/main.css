@@ -1,12 +1,10 @@
 /* Import the Roboto font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 /* Apply the font to the body and all text elements */
 body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, td {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
-
-
 
 .playlist-list {
     margin-bottom: 20px; /* Add margin between the two sections */
@@ -49,36 +47,32 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
     left: 0;
     width: 100%; /* full width coverage */
     z-index: -1; /* Place it behind other content */
-    animation: gradientAnimation 30s ease infinite; /* Animation details */
-    background: linear-gradient(to bottom, #f0d6b0, #f2e0ca);
-    transition: background 2s ease;
+    animation: gradientAnimation 15s ease infinite; /* Animation settings */
 }
 
-/* Define the animation */
 @keyframes gradientAnimation {
-    0%, 100% {
-        background-position: 0 0;
-    }
-    25% {
-        background: linear-gradient(to bottom, #ffe0b2, #ffd1a4); /* Light blue to sky blue */
+    0% {
+        background-position: 0% 50%; /* Start position */
     }
     50% {
-        background: linear-gradient(to bottom, #b2dfdb, #d2f3e0); /* Light orange to deep orange */
-    }
-    75% {
-        background: linear-gradient(to bottom, #c9e3ac, #ffe4e1); /* Light green to lime green */
+        background-position: 100% 50%; /* Middle position */
     }
     100% {
-        background: linear-gradient(to bottom, #e0bbff, #c9e3ac); /* Light pink to lavender */
+        background-position: 0% 50%; /* End position */
     }
+}
+
+/* Define the gradient background */
+.gradient-bg {
+    background: linear-gradient(180deg, #1f1f1f, #000000); /* Gradient colors */
 }
 
 /* login container */
 .container {
     max-width: 400px;
     margin: 0 auto; /* center align the container horizontally */
-    padding: 20px; /* padding inside the container */
-    background-color: rgba(255, 255, 255, 0.35); /* background color for the container */
+    padding: 40px; /* padding inside the container */
+    background-color: rgba(255, 255, 255, 0.50); /* background color for the container */
     border-radius: 8px; /* corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slight shadow effect */
     margin-top: 20px; /* Space at the top */
@@ -89,7 +83,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.35);
+    background-color: rgba(255, 255, 255, 0.25);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     margin-top: 20px;
@@ -118,10 +112,78 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
 /* adjusting the text color for better contrast */
 .navbar .navbar-brand,
 .navbar .navbar-nav .nav-link {
-    color: #0456b3; /* primary colour */
+    color: #ffffff; /* primary colour */
+    font-size: 18px;
+    transition: color 0.3s ease;
 }
 
 .navbar .navbar-brand:hover,
 .navbar .navbar-nav .nav-link:hover {
-    color: #FF7F00; /* secondary */
+    color: #86c5d1; /* secondary */
+
 }
+
+.logout-container {
+            margin-left: 15px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-container p {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            font-weight: 600;
+        }
+        .form-container .form-control {
+            border-radius: 8px;
+        }
+        .form-container .form-group {
+            margin-bottom: 20px;
+        }
+        .form-container .btn {
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+        .form-container .btn-primary {
+            background-color: #86c5d1;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+.form-container .btn-primary:hover {
+            background-color: #7354e0;
+        }
+        .form-container .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .form-container .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+.search-submit.btn {
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+.search-submit.btn-primary {
+            background-color: #86c5d1;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+.search-submit.btn-primary:hover {
+            background-color: #7354e0;
+
+.search.form-control {
+            border-radius: 8px;
+            max-width: 400px;
+        }
