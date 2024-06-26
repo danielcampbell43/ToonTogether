@@ -7,6 +7,7 @@ import net.minidev.json.JSONObject;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.List;
+import java.util.Set;
 @Data
 @Entity
 @Table(name = "songs")
@@ -33,6 +34,29 @@ public class Song {
 
     @Column(name = "image")
     private String image;
+
+//    @OneToMany(mappedBy = "song")
+//    private Set<PlaylistSong> playlistSongs;
+
+    public String getTrackName() {
+        return trackName;
+    }
+
+    public String getTrackArtist() {
+        return trackArtist;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public String getReleaseYear() {
+        return releaseYear;
+    }
+
+    public String getImage() {
+        return image;
+    }
 
     public Song(String id, String trackName, String trackArtist, String album, String releaseYear, String image) {
         this.id = id;

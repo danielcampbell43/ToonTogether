@@ -12,6 +12,7 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
@@ -39,7 +40,10 @@ public class SpotifyController {
 
     // Handle form submission
     @PostMapping("/addSong")
-    public String addSong(@RequestParam("songName") String songName, @RequestParam("playlistId") String playlistId, Model model) {
+    public RedirectView addSong(@RequestParam("songName") String songName,
+                                @RequestParam("playlistId") String playlistId,
+                                Model model,
+                                @RequestParam String returnURL) {
         try {
             Track track = spotifyService.searchTrackByName(songName);
             model.addAttribute("track", track);
@@ -76,11 +80,11 @@ public class SpotifyController {
 
 
 
-            return "termsandconditions";
+            return new RedirectView(returnURL);
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             e.printStackTrace();
             model.addAttribute("error", "Failed to retrieve track data");
-            return "error";
+            return new RedirectView("error");
         }
     }
 

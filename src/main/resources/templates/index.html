@@ -69,7 +69,12 @@
                 </thead>
                 <tbody>
                 <tr th:each="playlist: ${playlists}">
-                    <td class="td-no-wrap" th:text="${playlist.name}"></td>
+                    <td class="td-no-wrap">
+                        <a th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
+                    </td>
+                    <td class="td-no-wrap">
+                        <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" />
+                    </td>
                     <td class="td-no-wrap"> <img th:src="@{${playlist.owner.profilePicture}}" class="circular-img-icon" alt="user-profile-picture" />
                         <a th:if="${playlist.owner.username == currentUser.username}"
                            th:href="@{/myprofile}"

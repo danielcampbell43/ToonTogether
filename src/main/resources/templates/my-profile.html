@@ -44,13 +44,15 @@
                     </thead>
                     <tbody>
                     <tr th:each="playlist: ${playlists}">
-                        <td class="playlists" th:text="${playlist.name}"><a th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a></td>
                         <td class="td-no-wrap">
-                          <span sec:authentication="name"></span>
+                            <a th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
+                        </td>
+                        <td class="td-no-wrap">
+                            <span sec:authentication="name"></span>
                         </td>
                         <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
                         <td>
-                            <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/myprofile(id=${playlist.id})}" th:method="delete" onsubmit="return confirmDelete()">
+                            <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:method="post" onsubmit="return confirmDelete()">
                                 <input type="hidden" name="_method" value="delete">
                                 <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
                             </form>
@@ -75,6 +77,7 @@
                         </select>
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         <input type="text" id="songName" name="songName" placeholder="Enter song name" required>
+                        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
                         <button type="submit" class="btn btn-primary">Add Song</button>
                     </form>
 
