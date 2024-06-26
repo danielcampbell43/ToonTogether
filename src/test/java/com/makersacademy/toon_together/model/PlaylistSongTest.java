@@ -19,8 +19,9 @@ public class PlaylistSongTest {
         playlist = mock(Playlist.class);
         when(playlist.getId()).thenReturn(1);
         song = mock(Song.class);
-//        when(song.getId()).thenReturn("abc");
-//        playlistSong = new PlaylistSong(playlist, song, new Timestamp(10000));
+        when(song.getId()).thenReturn("abc");
+        playlistSong = new PlaylistSong(playlist, song);
+        playlistSong.setCreatedAt(new Timestamp(10000));
     }
 
     @Test
@@ -28,10 +29,10 @@ public class PlaylistSongTest {
         assertEquals(playlistSong.getPlaylist().getId(), 1);
     }
 
-//    @Test
-//    public void playlistSongHasSong() {
-//        assertEquals(playlistSong.getSong().getId(), "abc");
-//    }
+    @Test
+    public void playlistSongHasSong() {
+        assertEquals(playlistSong.getSong().getId(), "abc");
+    }
 
     @Test
     public void playlistSongHasCreateedAt() {

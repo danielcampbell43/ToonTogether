@@ -39,12 +39,13 @@
                         <th class="th-no-wrap">Playlist</th>
                         <th class="th-no-wrap">Created by</th>
                         <th class="th-no-wrap">Date added</th>
+                        <th class="th-no-wrap">Delete</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="playlist: ${playlists}">
                         <td class="td-no-wrap">
-                            <a th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
+                            <a class="playlists" th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
                         </td>
                         <td class="td-no-wrap">
                             <span sec:authentication="name"></span>

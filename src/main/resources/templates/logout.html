@@ -10,14 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div th:replace="layout :: header"></div>
 <div class="gradient-bg"></div>
-<header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">ToonTogether</a>
-        </div>
-    </nav>
-</header>
 <div class="container">
     <h2>Are you sure you want to logout?</h2>
     <form id="logout-form" action="/logout" method="post">

@@ -1,6 +1,7 @@
 package com.makersacademy.toon_together.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "playlist_songs")
 public class PlaylistSong {
 
@@ -31,11 +33,6 @@ public class PlaylistSong {
     @Column(name = "song_id", insertable = false, updatable = false)
     private String songId;
 
-    // Constructors, getters, setters
-    public PlaylistSong() {
-        // Default constructor needed by JPA
-    }
-
     public String getSongId() {
         return songId;
     }
@@ -48,7 +45,4 @@ public class PlaylistSong {
         this.playlist = playlist;
         this.song = song;
     }
-
-    // Getters and setters for other attributes
 }
-
