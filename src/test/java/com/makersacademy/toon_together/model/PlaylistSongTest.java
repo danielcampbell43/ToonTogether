@@ -20,7 +20,8 @@ public class PlaylistSongTest {
         when(playlist.getId()).thenReturn(1);
         song = mock(Song.class);
         when(song.getId()).thenReturn("abc");
-        playlistSong = new PlaylistSong(playlist, song, new Timestamp(10000));
+        playlistSong = new PlaylistSong(playlist, song);
+        playlistSong.setCreatedAt(new Timestamp(10000));
     }
 
     @Test

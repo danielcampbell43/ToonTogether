@@ -53,7 +53,7 @@ public class UserProfileTest {
         driver.findElement(By.id("playlist-name-submit")).click();
         driver.findElement(By.xpath("//*[text()='My Profile']")).click();
         List<WebElement> listItems = driver.findElements(By.className("playlists"));
-        WebElement lastListItem = listItems.get(listItems.size() - 1);
+        WebElement lastListItem = listItems.get(0);
         String lastPlaylistContent = lastListItem.getText();
         Assert.assertEquals(lastPlaylistContent,playlistName);
     }

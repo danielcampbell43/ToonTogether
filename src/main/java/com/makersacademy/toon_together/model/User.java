@@ -33,6 +33,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Favourite> userFavourites;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Collaborator> collaboratorPlaylists;
+
     @javax.persistence.Transient private String friend_status;
 
     public User() {
@@ -58,6 +61,12 @@ public class User {
     public List<Integer> getFavouritePlaylists() {
         return userFavourites.stream()
                 .map(favourite -> favourite.getPlaylist().getId())
+                .collect(Collectors.toList());
+    }
+
+    public List<Integer> getCollaboratorPlaylists() {
+        return userFavourites.stream()
+                .map(collaborator -> collaborator.getPlaylist().getId())
                 .collect(Collectors.toList());
     }
 }

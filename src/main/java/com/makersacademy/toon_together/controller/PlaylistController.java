@@ -1,14 +1,7 @@
 package com.makersacademy.toon_together.controller;
 
-import com.makersacademy.toon_together.model.Favourite;
-import com.makersacademy.toon_together.model.Playlist;
-import com.makersacademy.toon_together.model.User;
-import com.makersacademy.toon_together.model.Collaborator;
-import com.makersacademy.toon_together.repository.AuthoritiesRepository;
-import com.makersacademy.toon_together.repository.FavouriteRepository;
-import com.makersacademy.toon_together.repository.PlaylistRepository;
-import com.makersacademy.toon_together.repository.UserRepository;
-import com.makersacademy.toon_together.repository.CollaboratorRepository;
+import com.makersacademy.toon_together.model.*;
+import com.makersacademy.toon_together.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +31,10 @@ public class PlaylistController {
     CollaboratorRepository collaboratorRepository;
     @Autowired
     FavouriteRepository favouriteRepository;
+    @Autowired
+    SongRepository songRepository;
+    @Autowired
+    PlaylistSongsRepository playlistSongsRepository;
 
     @GetMapping("/playlists")
     public String index(@RequestParam(value = "search", required = false) String search, Model model, Authentication auth,
@@ -103,7 +100,6 @@ public class PlaylistController {
         Playlist playlist = playlistRepository.findById(playlistId);
 
         if (playlist == null || !playlist.getOwner().equals(currentUser)) {
-            System.out.println("goodbye");
             redirectAttributes.addFlashAttribute("errorMessage", "Access denied or playlist not found.");
             return "redirect:/playlists";
         }
@@ -139,5 +135,14 @@ public class PlaylistController {
             favouriteRepository.save(new Favourite(playlist, user));
         }
         return new RedirectView("/playlists");
+    }
+
+    @Transactional
+    @DeleteMapping("/playlist/song")
+    public RedirectView deletePlaylistSong(@RequestParam int playlistId, @RequestParam String songId, @RequestParam String returnURL) {
+        Song song = songRepository.findById(songId).get();
+        Playlist playlist = playlistRepository.findById(playlistId);
+        playlistSongsRepository.deleteByPlaylistAndSong(playlist, song);
+        return new RedirectView(returnURL);
     }
 }

@@ -28,6 +28,8 @@ public class UserProfileController {
     UserRepository userRepository;
     @Autowired
     FriendRepository friendRepository;
+    @Autowired
+    CollaboratorRepository collaboratorRepository;
 
     public ArrayList<User> getFriends(User sessionUser) {
         List<Friend> received = friendRepository.findAllByRecipient(sessionUser);
@@ -55,7 +57,10 @@ public class UserProfileController {
         if (authentication != null) {
             String username = authentication.getName();
             User user = userRepository.findByUsername(username);
-            Iterable<Playlist> playlists = playlistRepository.findByOwner(userRepository.findByUsername(username));
+            List<Playlist> playlists = playlistRepository.findByOwner(userRepository.findByUsername(username));
+            for (int i : user.getCollaboratorPlaylists()) {
+                playlists.add(playlistRepository.findById(i));
+            }
             model.addAttribute("playlists", playlists);
             model.addAttribute("user", user);
             model.addAttribute("favourites", user.getFavouritePlaylists().stream()

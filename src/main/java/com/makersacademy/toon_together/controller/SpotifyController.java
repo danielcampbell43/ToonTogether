@@ -4,14 +4,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.PlaylistSong;
 import com.makersacademy.toon_together.model.Song;
+import com.makersacademy.toon_together.model.User;
 import com.makersacademy.toon_together.repository.PlaylistRepository;
 import com.makersacademy.toon_together.repository.PlaylistSongsRepository;
 import com.makersacademy.toon_together.repository.SongRepository;
 import com.makersacademy.toon_together.service.SpotifyService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
@@ -20,6 +24,7 @@ import org.apache.hc.core5.http.ParseException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -39,7 +44,10 @@ public class SpotifyController {
 
     // Handle form submission
     @PostMapping("/addSong")
-    public String addSong(@RequestParam("songName") String songName, @RequestParam("playlistId") String playlistId, Model model) {
+    public RedirectView addSong(@RequestParam("songName") String songName,
+                                @RequestParam("playlistId") String playlistId,
+                                Model model,
+                                @RequestParam String returnURL) {
         try {
             Track track = spotifyService.searchTrackByName(songName);
             model.addAttribute("track", track);
@@ -76,11 +84,11 @@ public class SpotifyController {
 
 
 
-            return "termsandconditions";
+            return new RedirectView(returnURL);
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             e.printStackTrace();
             model.addAttribute("error", "Failed to retrieve track data");
-            return "error";
+            return new RedirectView("error");
         }
     }
 
@@ -93,4 +101,26 @@ public class SpotifyController {
     public CompletableFuture<Track> getTrackAsync(@PathVariable String id) {
         return spotifyService.getTrack_Async(id);
     }
+
+
+
+
+//    @PostMapping("/playlist/{playlistId}/song/{songId}")
+//    public RedirectView deleteSongFromPlaylist(@PathVariable("playlistId") Integer playlistId,
+//                                               @PathVariable("songId") String songId,
+//                                               @RequestParam String returnURL) {
+//        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+//        Optional<Song> song = songRepository.findById(songId);
+//
+//        if (playlist != null && song != null) {
+//            PlaylistSong playlistSong = playlistSongRepository.findByPlaylistAndSong(playlist, song);
+//            if (playlistSong != null) {
+//                playlistSongRepository.delete(playlistSong);
+//            }
+//        }
+//
+//        return new RedirectView("playlist"); // Redirect to the playlist page after deletion
+//    }
+
 }
+
