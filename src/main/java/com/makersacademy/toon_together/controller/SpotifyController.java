@@ -1,7 +1,11 @@
 package com.makersacademy.toon_together.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.makersacademy.toon_together.model.Playlist;
+import com.makersacademy.toon_together.model.PlaylistSong;
 import com.makersacademy.toon_together.model.Song;
+import com.makersacademy.toon_together.repository.PlaylistRepository;
+import com.makersacademy.toon_together.repository.PlaylistSongsRepository;
 import com.makersacademy.toon_together.repository.SongRepository;
 import com.makersacademy.toon_together.service.SpotifyService;
 import net.minidev.json.JSONObject;
@@ -27,9 +31,15 @@ public class SpotifyController {
     @Autowired
     private SongRepository songRepository;
 
+    @Autowired
+    private PlaylistRepository playlistRepository;
+
+    @Autowired
+    private PlaylistSongsRepository playlistSongRepository;
+
     // Handle form submission
     @PostMapping("/addSong")
-    public String addSong(@RequestParam("songName") String songName, Model model) {
+    public String addSong(@RequestParam("songName") String songName, @RequestParam("playlistId") String playlistId, Model model) {
         try {
             Track track = spotifyService.searchTrackByName(songName);
             model.addAttribute("track", track);
@@ -50,7 +60,21 @@ public class SpotifyController {
                     track.getAlbum().getImages()[0].getUrl()
             );
 
+            Playlist playlist = playlistRepository.findById(Integer.parseInt(playlistId));
+
+//            System.out.println(playlistId); //Strings
+//            System.out.println(track.getId()); // Strings
+
             songRepository.save(song);
+
+            PlaylistSong playlistSong = new PlaylistSong(
+                    playlist,
+                    song
+            );
+
+            playlistSongRepository.save(playlistSong);
+
+
 
             return "termsandconditions";
         } catch (IOException | SpotifyWebApiException | ParseException e) {

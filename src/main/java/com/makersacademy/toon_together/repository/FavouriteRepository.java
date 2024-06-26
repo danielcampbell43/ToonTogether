@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface FavouriteRepository extends CrudRepository<Favourite, Integer> {
+public interface FavouriteRepository extends CrudRepository<Favourite, Long> {
     Favourite findFavouriteByUserIdAndPlaylistId(int userId, int playlistId);
 }

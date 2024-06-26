@@ -4,29 +4,35 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Data
 @Entity
 @Table(name = "playlist_songs")
 public class PlaylistSong {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "playlist_id")
-    Playlist playlist;
+    private Playlist playlist;
 
     @ManyToOne
     @JoinColumn(name = "song_id")
-    Song song;
+    private Song song;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
 
-    public PlaylistSong(Playlist playlist, Song song, java.sql.Timestamp createdAt) {
+    // Constructors, getters, and setters
+    public PlaylistSong() {
+        // Default constructor needed by JPA
+    }
+
+    public PlaylistSong(Playlist playlist, Song song) {
         this.playlist = playlist;
         this.song = song;
-        this.createdAt = createdAt;
     }
 }

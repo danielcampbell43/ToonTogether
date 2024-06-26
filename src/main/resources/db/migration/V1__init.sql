@@ -38,7 +38,7 @@ CREATE TABLE songs (
 
 CREATE TABLE playlist_songs (
     PRIMARY KEY (id),
-    id INT GENERATED ALWAYS AS IDENTITY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
     playlist_id INT NOT NULL,
     CONSTRAINT fk_playlist_songs_playlist FOREIGN KEY(playlist_id) REFERENCES playlists(id),
     song_id INT NOT NULL,
