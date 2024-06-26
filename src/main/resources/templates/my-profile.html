@@ -16,7 +16,7 @@
 <div class="text-center my-4">
     <img th:src="@{${user.profilePicture}}" alt="profile-picture" class="circular-img" id="profile-picture" />
     <h1><span sec:authentication="name"></span>'s Profile</h1>
-    <button id="post_image_upload_widget" class="btn btn-primary cloudinary-button">Change Profile Picture</button>
+    <button id="post_image_upload_widget" class="search-submit btn btn-primary cloudinary-button">Change Profile Picture</button>
 </div>
 
 <!-- Hidden form to submit the profile picture URL -->
@@ -32,23 +32,40 @@
         <div class="col-md-6">
             <div sec:authorize="isAuthenticated()">
                 <h3>Your playlists: </h3>
-                <ul th:each="playlist: ${playlists}">
-                    <li class="playlists">
-                        <a th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
-                    </li>
-                    <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/myprofile(id=${playlist.id})}" th:method="delete" onsubmit="return confirmDelete()">
-                        <input type="hidden" name="_method" value="delete">
-                        <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
-                    </form>
-                </ul>
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="th-no-wrap">Playlist</th>
+                        <th class="th-no-wrap">Created by</th>
+                        <th class="th-no-wrap">Date added</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="playlist: ${playlists}">
+                        <td class="td-no-wrap" th:text="${playlist.name}"><a th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a></td>
+                        <td class="td-no-wrap">
+                          <span sec:authentication="name"></span>
+                        </td>
+                        <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
+                        <td>
+                            <form th:id="'delete-form-' + ${playlist.id}" th:action="@{/myprofile(id=${playlist.id})}" th:method="delete" onsubmit="return confirmDelete()">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
+        <!-- A dummy form since we don't have the songs set up on the db yet -->
         <div class="col-md-6">
             <div class="container">
                 <h3>Add a Song</h3>
                 <!-- Choose which playlist you want the song to be added to -->
-                <div class="form-group">
+                <div class="form-container">
                     <form id="select-playlist-form" th:action="@{/addSong}" method="post">
                         <label for="playlist-select">Select Playlist:</label>
                         <select id="playlist-select" name="playlistId" class="form-control" required>

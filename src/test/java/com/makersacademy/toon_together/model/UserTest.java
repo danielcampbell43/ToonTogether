@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserTest {
 
@@ -42,4 +44,22 @@ public class UserTest {
         assertEquals(user.getCreatedAt(), new Timestamp(10000));
     }
 
+    @Test
+    public void testGetFavouritePlaylists() {
+        // checks favourite playlists are successfully added to favourites
+        List<Favourite> favourites = new ArrayList<>();
+        Playlist playlist1 = new Playlist();
+        playlist1.setId(1);
+        Playlist playlist2 = new Playlist();
+        playlist2.setId(2);
+        favourites.add(new Favourite(playlist1, user));
+        favourites.add(new Favourite(playlist2, user));
+
+        user.setUserFavourites(favourites);
+
+        List<Integer> favouriteIds = user.getFavouritePlaylists();
+        assertEquals(2, favouriteIds.size());
+        assertTrue(favouriteIds.contains(1));
+        assertTrue(favouriteIds.contains(2));
+    }
 }

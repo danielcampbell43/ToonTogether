@@ -17,16 +17,67 @@
     <h1><span th:text="${profileUser.username}"></span>'s Profile</h1>
 </div>
 
+<div th:switch="${profileUser.friend_status}" class="add-remove-friend">
+    <form th:case="'Friend'" th:action="@{/friends/delete}" method="post">
+        <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+        <button type="submit">Remove Friend</button>
+    </form>
+    <form th:case="'Sent'" th:action="@{/friends/delete}" method="post">
+        <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+        <button type="submit">Cancel Friend Request</button>
+    </form>
+    <div th:case="'Received'">
+        <form th:action="@{/friends/confirm}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Confirm Friend Request</button>
+        </form>
+        <form th:action="@{/friends/delete}" method="post">
+            <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+            <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+            <button type="submit">Deny Friend Request</button>
+        </form>
+    </div>
+
+    <form th:case="'None'" th:action="@{/friends/add}" method="post">
+        <input type="hidden" name="recipient_username" th:value="${profileUser.username}">
+        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
+        <button type="submit">Add Friend</button>
+    </form>
+    <p th:case="*">
+        You cannot be friends with this user
+    </p>
+</div>
+
 <div class="container">
     <div class="row">
         <!-- User's playlists -->
         <div class="col-md-6">
-            <div>
+
                 <h3>Playlists:</h3>
-                <ul th:each="playlist : ${playlists}">
-                    <li th:text="${playlist.name}"></li>
-                </ul>
-            </div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="th-no-wrap">Playlist</th>
+                        <th class="th-no-wrap">Created by</th>
+                        <th class="th-no-wrap">Date added</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="playlist: ${playlists}">
+                        <td class="td-no-wrap" th:text="${playlist.name}"></td>
+                        <td class="td-no-wrap">
+                               <span th:text="${profileUser.username}"></span>
+                        </td>
+                        <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+<!--                <ul th:each="playlist : ${playlists}">-->
+<!--                    <li th:text="${playlist.name}"></li>-->
+<!--                </ul>-->
         </div>
     </div>
 </div>
