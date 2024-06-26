@@ -8,8 +8,12 @@
 </head>
 <body>
 <div class="container">
-    <h1 th:text="${playlist.name}">Playlist Name</h1>
-
+    <h1 th:text="${playlistWithSongs.playlist.name}">Playlist Name</h1>
+    <ul>
+        <li th:each="song: ${playlistWithSongs.songs}">
+            <span th:text="${song.getTrackName()}"></span><span th:text="${song.getTrackArtist()}"></span><span th:text="${song.getAlbum()}"></span><span th:text="${song.getReleaseYear()}"></span><span><img th:src="${song.getImage()}" alt="Song Image"></span>
+        </li>
+    </ul>
 
 </div>
 

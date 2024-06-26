@@ -37,6 +37,25 @@ public class Song {
 //    @OneToMany(mappedBy = "song")
 //    private Set<PlaylistSong> playlistSongs;
 
+    public String getTrackName() {
+        return trackName;
+    }
+
+    public String getTrackArtist() {
+        return trackArtist;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public String getReleaseYear() {
+        return releaseYear;
+    }
+
+    public String getImage() {
+        return image;
+    }
 
 
     public Song() {

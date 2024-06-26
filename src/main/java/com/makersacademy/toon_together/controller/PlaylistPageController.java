@@ -1,5 +1,6 @@
 package com.makersacademy.toon_together.controller;
 
+import com.makersacademy.toon_together.dto.PlaylistWithSongsDTO;
 import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.PlaylistSong;
 import com.makersacademy.toon_together.model.Song;
@@ -43,10 +44,11 @@ public class PlaylistPageController {
 
         Iterable<Song> songs = songRepository.findAllById(songIds);  // Use Iterable<String>
 
+        PlaylistWithSongsDTO playlistWithSongsDTO = new PlaylistWithSongsDTO(playlist, (List<Song>) songs);
+
         System.out.println(songs);
 
-        model.addAttribute("playlist", playlist);
-        model.addAttribute("songs", songs);
+        model.addAttribute("playlistWithSongs", playlistWithSongsDTO);
         return "playlist";
     }
 }
