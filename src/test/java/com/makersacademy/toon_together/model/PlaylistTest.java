@@ -15,6 +15,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlaylistTest {
 
     public User user;
@@ -42,5 +45,30 @@ public class PlaylistTest {
         assertEquals(new Timestamp(10000), playlist.getCreatedAt());
     }
 
+    @Test
+    public void testFavouritePlaylist() {
+        List<Favourite> favouriteList = new ArrayList<>();
+        Favourite favourite = mock(Favourite.class);
+        favouriteList.add(favourite);
+
+        playlist.setFavouritePlaylist(favouriteList);
+
+        assertEquals(favouriteList, playlist.getFavouritePlaylist());
+    }
+
+    @Test
+    public void testContainsUser() {
+        List<Favourite> favouriteList = new ArrayList<>();
+        User anotherUser = mock(User.class);
+        when(anotherUser.getUsername()).thenReturn("anotherUser");
+
+        Favourite favourite = new Favourite(playlist, anotherUser);
+        favouriteList.add(favourite);
+
+        playlist.setFavouritePlaylist(favouriteList);
+
+        assertTrue(playlist.containsUser("anotherUser"));
+        assertFalse(playlist.containsUser("nonExistentUser"));
+    }
 
 }
