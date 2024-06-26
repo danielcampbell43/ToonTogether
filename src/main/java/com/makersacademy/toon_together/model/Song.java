@@ -11,6 +11,9 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "songs")
+
+@Data
+
 @NoArgsConstructor
 public class Song {
     @Id
