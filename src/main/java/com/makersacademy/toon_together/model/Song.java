@@ -8,10 +8,12 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.List;
 import java.util.Set;
-
+@Data
 @Entity
 @Table(name = "songs")
+
 @Data
+
 @NoArgsConstructor
 public class Song {
     @Id
@@ -39,30 +41,25 @@ public class Song {
 //    @OneToMany(mappedBy = "song")
 //    private Set<PlaylistSong> playlistSongs;
 
-//    public String getTrackName() {
-//        return trackName;
-//    }
-//
-//    public String getTrackArtist() {
-//        return trackArtist;
-//    }
-//
-//    public String getAlbum() {
-//        return album;
-//    }
-//
-//    public String getReleaseYear() {
-//        return releaseYear;
-//    }
-//
-//    public String getImage() {
-//        return image;
-//    }
+    public String getTrackName() {
+        return trackName;
+    }
 
+    public String getTrackArtist() {
+        return trackArtist;
+    }
 
-//    public Song() {
-//
-//    }
+    public String getAlbum() {
+        return album;
+    }
+
+    public String getReleaseYear() {
+        return releaseYear;
+    }
+
+    public String getImage() {
+        return image;
+    }
 
     public Song(String id, String trackName, String trackArtist, String album, String releaseYear, String image) {
         this.id = id;
