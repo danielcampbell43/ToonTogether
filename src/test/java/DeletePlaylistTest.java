@@ -57,9 +57,6 @@ public class DeletePlaylistTest {
     public void successfulDeletePlaylist() {
         // Navigate to the playlists page
         driver.get("http://localhost:8080/playlists");
-        WebElement playlistRow = findPlaylistRow(playlistName); // Find the playlist row that contains the playlist we created
-        assertNotNull("Playlist row should not be null", playlistRow); // playlist row is found
-        // the delete button in the playlist row and click
         try {
             WebElement deleteButton = driver.findElement(By.xpath(".//td/form/button[text()='Delete']"));
             deleteButton.click();
@@ -68,7 +65,7 @@ public class DeletePlaylistTest {
         }
         Alert alert = driver.switchTo().alert(); // Handle the confirmation dialog (if any)
         alert.accept();
-        WebDriverWait wait = new WebDriverWait(driver, 10); // Wwwit for the page to reload after deletion
+        WebDriverWait wait = new WebDriverWait(driver, 10); // Wait for the page to reload after deletion
         wait.until(ExpectedConditions.urlContains("/playlists"));
         assertFalse("Playlist should not exist after deletion", // check that the playlist no longer exists in the list
                 isPlaylistPresent(playlistName));

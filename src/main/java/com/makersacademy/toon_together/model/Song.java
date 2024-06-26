@@ -7,9 +7,10 @@ import net.minidev.json.JSONObject;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.List;
-
+@Data
 @Entity
 @Table(name = "songs")
+@NoArgsConstructor
 public class Song {
     @Id
     private String id;
@@ -32,10 +33,6 @@ public class Song {
 
     @Column(name = "image")
     private String image;
-
-    public Song() {
-
-    }
 
     public Song(String id, String trackName, String trackArtist, String album, String releaseYear, String image) {
         this.id = id;

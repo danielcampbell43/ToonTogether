@@ -13,7 +13,8 @@ public class SongTest {
 
     @Before
     public void setUp() {
-        song = new Song(new Timestamp(10000));
+        song = new Song();
+        song.setCreatedAt(new Timestamp(10000));
     }
 
     @Test
