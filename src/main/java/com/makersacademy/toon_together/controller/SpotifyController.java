@@ -4,12 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.makersacademy.toon_together.model.Playlist;
 import com.makersacademy.toon_together.model.PlaylistSong;
 import com.makersacademy.toon_together.model.Song;
+import com.makersacademy.toon_together.model.User;
 import com.makersacademy.toon_together.repository.PlaylistRepository;
 import com.makersacademy.toon_together.repository.PlaylistSongsRepository;
 import com.makersacademy.toon_together.repository.SongRepository;
 import com.makersacademy.toon_together.service.SpotifyService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -21,6 +24,7 @@ import org.apache.hc.core5.http.ParseException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -97,4 +101,26 @@ public class SpotifyController {
     public CompletableFuture<Track> getTrackAsync(@PathVariable String id) {
         return spotifyService.getTrack_Async(id);
     }
+
+
+
+
+//    @PostMapping("/playlist/{playlistId}/song/{songId}")
+//    public RedirectView deleteSongFromPlaylist(@PathVariable("playlistId") Integer playlistId,
+//                                               @PathVariable("songId") String songId,
+//                                               @RequestParam String returnURL) {
+//        Optional<Playlist> playlist = playlistRepository.findById(playlistId);
+//        Optional<Song> song = songRepository.findById(songId);
+//
+//        if (playlist != null && song != null) {
+//            PlaylistSong playlistSong = playlistSongRepository.findByPlaylistAndSong(playlist, song);
+//            if (playlistSong != null) {
+//                playlistSongRepository.delete(playlistSong);
+//            }
+//        }
+//
+//        return new RedirectView("playlist"); // Redirect to the playlist page after deletion
+//    }
+
 }
+

@@ -30,8 +30,8 @@ public class Playlist {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.sql.Timestamp createdAt;
 
-//    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
-//    private List<Collaborator> collaborators;
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
+    private List<Collaborator> collaborators;
 
     @OneToMany(mappedBy = "playlist")
     private List<PlaylistSong> playlistSongs;
@@ -52,5 +52,14 @@ public class Playlist {
 
     public boolean containsUser(String username) {
         return favouritePlaylist.stream().anyMatch(favourite -> favourite.getUser().getUsername().equals(username));
+    }
+
+    public List<Integer> getDeleters() {
+        ArrayList<Integer> r = new ArrayList<>();
+        r.add(this.owner.getId());
+        for (Collaborator c : collaborators) {
+            r.add(c.getId());
+        }
+        return r;
     }
 }
