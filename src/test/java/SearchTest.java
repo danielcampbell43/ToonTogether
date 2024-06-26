@@ -53,11 +53,11 @@ public class SearchTest {
         String playlistName = faker.pokemon().name();
         driver.findElement(By.id("playlist-name")).sendKeys(playlistName);
         driver.findElement(By.id("playlist-name-submit")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//table/tbody/tr/td[contains(text(), '" + playlistName + "')]")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//table/tbody/tr/td/a[contains(text(), '" + playlistName + "')]")));
 
         driver.findElement(By.name("search")).sendKeys((playlistName));
         driver.findElement(By.className("search-submit")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//table/tbody/tr/td[contains(text(), '" + playlistName + "')]")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//table/tbody/tr/td/a[contains(text(), '" + playlistName + "')]")));
 
         List<WebElement> listItems = driver.findElements(By.xpath("//table/tbody/tr"));
         boolean playlistFound = false;
