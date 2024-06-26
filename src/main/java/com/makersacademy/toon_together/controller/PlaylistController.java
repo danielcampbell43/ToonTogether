@@ -103,7 +103,6 @@ public class PlaylistController {
         Playlist playlist = playlistRepository.findById(playlistId);
 
         if (playlist == null || !playlist.getOwner().equals(currentUser)) {
-            System.out.println("goodbye");
             redirectAttributes.addFlashAttribute("errorMessage", "Access denied or playlist not found.");
             return "redirect:/playlists";
         }

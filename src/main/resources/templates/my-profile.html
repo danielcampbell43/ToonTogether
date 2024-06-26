@@ -76,6 +76,7 @@
                         </select>
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         <input type="text" id="songName" name="songName" placeholder="Enter song name" required>
+                        <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
                         <button type="submit" class="btn btn-primary">Add Song</button>
                     </form>
 

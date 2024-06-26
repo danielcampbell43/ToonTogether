@@ -46,8 +46,6 @@ public class PlaylistPageController {
 
         PlaylistWithSongsDTO playlistWithSongsDTO = new PlaylistWithSongsDTO(playlist, (List<Song>) songs);
 
-        System.out.println(songs);
-
         model.addAttribute("playlistWithSongs", playlistWithSongsDTO);
         return "playlist";
     }
