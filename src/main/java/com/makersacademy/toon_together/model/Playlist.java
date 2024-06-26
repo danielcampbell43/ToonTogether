@@ -46,6 +46,10 @@ public class Playlist {
 //        this.collaborators = new ArrayList<>();
     }
 
+    public String getPlaylistName() {
+        return name;
+    }
+
     public boolean containsUser(String username) {
         return favouritePlaylist.stream().anyMatch(favourite -> favourite.getUser().getUsername().equals(username));
     }
