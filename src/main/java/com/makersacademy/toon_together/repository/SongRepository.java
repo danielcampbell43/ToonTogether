@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SongRepository extends CrudRepository<Song, String> {
+    Iterable<Song> findAllById(Iterable<String> ids);
 }
