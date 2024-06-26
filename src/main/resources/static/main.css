@@ -1,13 +1,15 @@
-/* Import the Roboto font */
+/* Import the Open Sans font */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 /* Apply the font to the body and all text elements */
 body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, td {
     font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
-    color: white; /* Set the text color to white */
+    color: white;
 }
 
 h2 {
@@ -16,31 +18,35 @@ h2 {
     margin-bottom: 20px;
 }
 
+/* Margin between sections */
 .playlist-list {
-    margin-bottom: 20px; /* Add margin between the two sections */
+    margin-bottom: 20px;
 }
 
+/* Padding for profile content */
 .profile-content {
     padding-bottom: 100px;
 }
 
+/* Navbar styles */
 .navbar .d-flex.align-items-center {
-     display: flex;
-     align-items: center;
+    display: flex;
+    align-items: center;
 }
 
+/* Circular image styles */
 .circular-img {
-     width: 200px; /* or any desired width */
-     height: 200px; /* or any desired height */
-     border-radius: 50%;
-     object-fit: cover; /* This ensures the image covers the circle area */
+    width: 200px; /* or any desired width */
+    height: 200px; /* or any desired height */
+    border-radius: 50%;
+    object-fit: cover; /* This ensures the image covers the circle area */
 }
 
 .circular-img-icon {
-      width: 50px; /* or any desired width */
-      height: 50px; /* or any desired height */
-      border-radius: 50%;
-      object-fit: cover; /* This ensures the image covers the circle area */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover; /* This ensures the image covers the circle area */
 }
 
 /* CSS to prevent wrapping */
@@ -50,14 +56,10 @@ h2 {
 }
 
 /* Gradient background animation */
-.gradient-bg {
-    height: 100vh; /* full height coverage */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* full width coverage */
-    z-index: -1; /* Place it behind other content */
-    animation: gradientAnimation 15s ease infinite; /* Animation settings */
+html, body {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(180deg, #0a0a23, #121212); /* Gradient colors */
 }
 
 @keyframes gradientAnimation {
@@ -72,30 +74,62 @@ h2 {
     }
 }
 
-/* Define the gradient background */
-.gradient-bg {
-    background: linear-gradient(180deg, #242424, #000000); /* Gradient colors */
-}
-
-/* login container */
+/* Container styles */
 .container {
-    max-width: 400px;
-    margin: 0 auto; /* center align the container horizontally */
-    padding: 40px; /* padding inside the container */
-    background-color: rgba(255, 255, 255, 0.50); /* background color for the container */
-    border-radius: 8px; /* corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slight shadow effect */
-    margin-top: 20px; /* Space at the top */
-    margin-bottom: 20px; /* Space at the bottom */
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px;
+  /* Base color for glossy effect */
+  background-color: rgba(102, 126, 172, 1);
+  border-radius: 8px;
+  /* Glossy effect */
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.4),
+              2px -2px 5px rgba(255, 255, 255, 0.7),
+              5px 5px 15px rgba(0, 0, 0, 0.2); /* Added external shadow for 3D effect */
+  /* Subtle gradient overlay */
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(102, 126, 172, 0.95) 50%, rgba(102, 126, 172, 1) 100%);
+  /* Inner shadow for border */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
+.container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%);
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+.container:after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  filter: blur(20px); /* Blurred shine effect */
+  pointer-events: none;
+}
+
+
+/* Terms container styles */
 .terms-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(127, 158, 214, 0.25);
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     margin-top: 20px;
     margin-bottom: 20px;
     overflow-y: auto;
@@ -104,7 +138,7 @@ h2 {
 
 .terms-container h2 {
     font-size: 28px; /* adjusting heading size */
-    color: #0456b3;
+    color: white;
     margin-bottom: 10px;
 }
 
@@ -119,7 +153,7 @@ h2 {
     line-height: 1.6;
 }
 
-/* adjusting the text color for better contrast */
+/* Navbar brand and nav link styles */
 .navbar .navbar-brand,
 .navbar .navbar-nav .nav-link {
     color: #ffffff; /* primary colour */
@@ -130,13 +164,13 @@ h2 {
 .navbar .navbar-brand:hover,
 .navbar .navbar-nav .nav-link:hover {
     color: #86c5d1; /* secondary */
-
 }
 
 .logout-container {
-            margin-left: 15px;
+    margin-left: 15px;
 }
 
+/* Form container styles */
 .form-container {
     max-width: 600px;
     margin: 0 auto;
@@ -190,138 +224,116 @@ h2 {
     background-color: #5a6268;
 }
 
+/* Search submit button styles */
 .search-submit.btn {
-            font-weight: 600;
-            border-radius: 8px;
-            padding: 10px 20px;
-            margin-top: 10px;
-        }
-.search-submit.btn-primary {
-            background-color: #86c5d1;
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-.search-submit.btn-primary:hover {
-            background-color: #7354e0;
-        }
-.search.form-control {
-            border-radius: 8px;
-            max-width: 200px; /* Adjusted for a smaller search bar */
-            margin-left: 0; /* Align to the left */
-            margin-right: 10px; /* Optional: Add some space between the search bar and the button */
-        }
-.search.label {
-            font-weight: 600;
-        }
-.login-submit.btn {
-            font-weight: 600;
-            border-radius: 8px;
-            padding: 10px 20px;
-            margin-top: 20px;
-        }
-.login-submit.btn-primary {
-            background-color: #86c5d1;
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-.login-submit.btn-primary:hover {
-            background-color: #7354e0;
-        }
-.center-container {
-            justify-content: center;
-            align-items: center;
-        }
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
 
-/* Enhance table appearance */
+.search-submit.btn-primary {
+    background-color: #86c5d1;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.search-submit.btn-primary:hover {
+    background-color: #7354e0;
+}
+
+.search.form-control {
+    border-radius: 8px;
+    max-width: 200px; /* Adjusted for a smaller search bar */
+    margin-left: 0; /* Align to the left */
+    margin-right: 10px; /* Optional: Add some space between the search bar and the button */
+}
+
+.search.label {
+    font-weight: 600;
+}
+
+/* Login submit button styles */
+.login-submit.btn {
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+.login-submit.btn-primary {
+    background-color: #86c5d1;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.login-submit.btn-primary:hover {
+    background-color: #7354e0;
+}
+
+.center-container {
+    justify-content: center;
+    align-items: center;
+}
+
+/* Table styles */
 .table {
     margin-top: 20px;
 }
+
 .table thead {
     background-color: #343a40;
     color: white;
 }
+
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(0, 0, 0, 0.05);
 }
+
 .table-hover tbody tr:hover {
     background-color: rgba(0, 0, 0, 0.075);
 }
+
 .table-bordered th,
 .table-bordered td {
     border: 1px solid #dee2e6;
     padding: 8px;
 }
+
 .btn-sm {
     padding: .25rem .5rem;
     font-size: .875rem;
     line-height: 1.5;
     border-radius: .2rem;
 }
+
 .btn-danger {
     background-color: #dc3545;
     border-color: #dc3545;
     color: white;
 }
+
 .btn-danger:hover {
     background-color: #c82333;
     border-color: #bd2130;
 }
+
 .table.btn {
     font-weight: 600;
     border-radius: 8px;
-    padding: 10px 20px;
-}
-.table.btn-primary {
-   background-color: #86c5d1;
-   border: none;
-   transition: background-color 0.3s ease;
-}
-.table.btn-primary:hover {
-   background-color: #7354e0;
+    padding:
+
+.circular-img-icon {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+    border-radius: 50%;
+    object-fit: cover; /* Ensure the image covers the circle area */
+    display: block; /* Ensure the image is displayed as a block element */
+    margin: 0 auto; /* Center the image horizontally */
 }
 
-/* Change link color in table */
-.table a {
-    color: #000000; /* Set your desired color */
-    text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.table a:hover {
-    color: #86c5d1; /* Set your desired hover color */
-    text-decoration: underline; /* Optional: Add underline on hover */
-}
-
-/* Pagination styling */
-.pagination {
-    justify-content: center; /* Center the pagination controls */
-    margin-top: 20px; /* Add some space above the pagination */
-}
-
-.pagination .page-item .page-link {
-    color: #000000; /* Default color */
-    border-radius: 8px; /* Rounded corners */
-    margin: 0 5px; /* Space between the buttons */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #86c5d1; /* Active background color */
-    border-color: #86c5d1; /* Active border color */
-    color: #fff; /* Active text color */
-}
-
-.pagination .page-item .page-link:hover {
-    background-color: #7354e0; /* Hover background color */
-    color: #fff; /* Hover text color */
-}
-
-.pagination .page-item.disabled .page-link {
-    color: #000000; /* Disabled text color */
-    background-color: #e9ecef; /* Disabled background color */
-    border-color: #dee2e6; /* Disabled border color */
-}
-
-.pagination .page-item .page-link:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Focus outline */
+.card {
+    background: none; /* Remove default background */
+    border: none; /* Remove default border */
+    box-shadow: none; /* Remove any box shadow */
 }
