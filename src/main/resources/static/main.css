@@ -419,6 +419,10 @@ html, body {
     margin-right: 10px;
 }
 
+footer .logout-container p {
+    color: white;
+}
+
 
 
 
