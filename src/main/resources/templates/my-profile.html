@@ -43,12 +43,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="playlist: ${playlists}">
+                    <tr th:each="playlist, iStat : ${playlists}">
                         <td class="td-no-wrap">
                             <a class="playlists" th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
                         </td>
                         <td class="td-no-wrap">
-                            <span sec:authentication="name"></span>
+                            <span th:text="${owners[iStat.index]}"></span>
                         </td>
                         <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
                         <td>
