@@ -67,7 +67,7 @@ public class UserProfileController {
                     .map(Playlist::getId)
                     .collect(Collectors.toList());
             for (int i : idList) {
-                owners.add(userRepository.getById(i).getUsername());
+                owners.add(playlistRepository.findById(i).getOwner().getUsername());
             }
             model.addAttribute("playlists", playlistSet);
             model.addAttribute("owners", owners);
