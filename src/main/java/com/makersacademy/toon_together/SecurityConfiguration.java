@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/playlists").hasRole("USER")
                 .antMatchers("/myprofile").hasRole("USER")
                 .antMatchers("/myprofile/updateProfilePicture").hasRole("USER")
-                .antMatchers("/friends").hasRole("USER")
+                .antMatchers("/users/friends").hasRole("USER")
                 .antMatchers("/users", "/login", "/logout", "/signup").permitAll()
                 .and()
                 .formLogin()

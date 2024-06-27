@@ -9,7 +9,13 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, label, table, th, 
 }
 
 h1 {
-    color: white;
+    color: #ffffff;
+}
+
+h1.title {
+    color: #000000;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 h2 {
@@ -222,6 +228,7 @@ html, body {
 
 /* Form container styles */
 .form-container {
+    color: #000000;
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -255,13 +262,13 @@ html, body {
 }
 
 .form-container .btn-primary {
-    background-color: #86c5d1;
+    background-color: #7354e0;
     border: none;
     transition: background-color 0.3s ease;
 }
 
 .form-container .btn-primary:hover {
-    background-color: #7354e0;
+    background-color: #86c5d1;
 }
 
 .form-container .btn-secondary {
@@ -283,13 +290,13 @@ html, body {
 }
 
 .search-submit.btn-primary {
-    background-color: #86c5d1;
+    background-color: #7354e0;
     border: none;
     transition: background-color 0.3s ease;
 }
 
 .search-submit.btn-primary:hover {
-    background-color: #7354e0;
+    background-color: #86c5d1;
 }
 
 .search.form-control {
@@ -312,13 +319,13 @@ html, body {
 }
 
 .login-submit.btn-primary {
-    background-color: #86c5d1;
+    background-color: #7354e0;
     border: none;
     transition: background-color 0.3s ease;
 }
 
 .login-submit.btn-primary:hover {
-    background-color: #7354e0;
+    background-color: #86c5d1;
 }
 
 .center-container {
