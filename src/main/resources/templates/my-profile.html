@@ -62,10 +62,9 @@
                 </table>
             </div>
         </div>
-
-        <!-- A dummy form since we don't have the songs set up on the db yet -->
         <div class="col-md-6">
-            <div class="container">
+            <div class="container mt-4 profile-content">
+                <div class="form col-12">
                 <h3>Add a Song</h3>
                 <!-- Choose which playlist you want the song to be added to -->
                 <div class="form-container">
@@ -80,7 +79,6 @@
                         <input type="hidden" name="returnURL" th:value="${#httpServletRequest.requestURI}">
                         <button type="submit" class="btn btn-primary">Add Song</button>
                     </form>
-
                 </div>
         </div>
     </div>

@@ -6,32 +6,39 @@
     <link rel="stylesheet" href="/main.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
-<div th:replace="layout :: header"></div>
 <div class="gradient-bg"></div>
+<div th:replace="layout :: header"></div>
 
-
-<div class="container">
-    <div th:if="${logoutMessage}" class="alert alert-success" th:text="${logoutMessage}"></div>
-    <form th:action="@{/login}" method="post">
-        <div class="form-container">
-            <h2>Login</h2>
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
-            <button type="submit" class="login-submit btn btn-primary">Login</button>
+<div class="container mt-4 profile-content">
+    <div class="row">
+        <div class="form col-12">
+        <div th:if="${logoutMessage}" class="alert alert-success" th:text="${logoutMessage}"></div>
+            <form th:action="@{/login}" method="post">
+                <div class="form-container">
+                    <h2>Login</h2>
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                    <button type="submit" class="login-submit btn btn-primary">Login</button>
+                </div>
+            </form>
         </div>
-
-
-    </form>
+    </div>
 </div>
-<div class="container">
-    <form class="form-container" action="/users/new" method="get" aria-label="Sign up form">
-        <h2>Not already tooning with us?</h2>
-        <button type="submit" class="btn btn-primary">Sign up</button>
-    </form>
+
+<div class="container mt-4 profile-content">
+    <div class="row">
+        <div class="form col-12">
+            <form class="form-container" action="/users/new" method="get" aria-label="Sign up form">
+                <h2>Not already tooning with us?</h2>
+                <button type="submit" class="btn btn-primary">Sign up</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

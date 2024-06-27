@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Signup</title>
+    <link rel="stylesheet" href="/main.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -23,13 +24,8 @@
 <!--    </script>-->
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">ToonTogether</a>
-        </div>
-    </nav>
-</header>
+<div th:replace="layout :: header"></div>
+<div class="gradient-bg"></div>
 
 <!-- Signup Success Modal-->
 <!--<div class="modal fade" id="signupSuccessModal" tabindex="-1" role="dialog" aria-labelledby="signupSuccessModalLabel" aria-hidden="true">-->
@@ -62,14 +58,18 @@
 <!--    </form>-->
 <!--</div>-->
 
-<div>
+<div class="container">
+    <div class="form-container">
     <h2>Sign up</h2>
     <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-        <p>Username: <input type="text" th:field="*{username}" /></p>
-        <p>Password: <input type="password" th:field="*{password}" /></p>
+        <label for="username">Username</label>
+        <input type="text" class="form-control" th:field="*{username}" id="username"/></p>
+        <label for="password">Password</label>
+        <input type="password" class="form-control" th:field="*{password}" id="password"/></p>
         <button type="submit" class="btn btn-primary" value="Submit" id="submit">Submit</button>
         <button type="reset" class="btn btn-secondary" value="Reset">Reset</button>
     </form>
+    </div>
 </div>
 </body>
 </html>
