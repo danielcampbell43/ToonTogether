@@ -122,6 +122,54 @@ html, body {
   z-index: -1;
 }
 
+.playlist-container {
+    max-width: 70%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(102, 126, 172, 1);
+    border-radius: 8px;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.4),
+                2px -2px 5px rgba(255, 255, 255, 0.7),
+                5px 5px 15px rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(102, 126, 172, 0.95) 50%, rgba(102, 126, 172, 1) 100%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.table {
+    width: auto;
+    table-layout: auto; /* Allow the table to adjust based on content */
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    text-align: center; /* Center align content */
+    padding: 8px;
+}
+
+.table th {
+    background-color: #343a40;
+    color: white;
+    font-weight: bold;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.09);
+}
+
+@media (min-width: 768px) {
+    .table {
+        width: 100%; /* Expand table to full width on larger screens */
+        table-layout: fixed; /* Fix table layout for consistent column widths */
+    }
+}
+
 
 /* Terms container styles */
 .terms-container {
@@ -349,5 +397,28 @@ html, body {
 .table a:hover {
     color: black; /* Set hover link color to black */
 }
+
+/* Custom styles for friend buttons */
+.add-remove-friend {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.add-remove-friend form {
+    display: inline-block;
+    margin: 5px;
+}
+
+.add-remove-friend .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+/* adjust spacing between buttons in "Received" state */
+.add-remove-friend .d-flex .mr-2 {
+    margin-right: 10px;
+}
+
+
 
 
