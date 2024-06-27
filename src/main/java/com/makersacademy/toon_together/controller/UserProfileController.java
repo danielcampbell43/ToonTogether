@@ -61,7 +61,16 @@ public class UserProfileController {
             for (int i : user.getCollaboratorPlaylists()) {
                 playlists.add(playlistRepository.findById(i));
             }
-            model.addAttribute("playlists", playlists);
+            Set<Playlist> playlistSet = new HashSet<>(playlists);
+            ArrayList<String> owners = new ArrayList<>();
+            List<Integer> idList = playlistSet.stream()
+                    .map(Playlist::getId)
+                    .collect(Collectors.toList());
+            for (int i : idList) {
+                owners.add(playlistRepository.findById(i).getOwner().getUsername());
+            }
+            model.addAttribute("playlists", playlistSet);
+            model.addAttribute("owners", owners);
             model.addAttribute("user", user);
             model.addAttribute("favourites", user.getFavouritePlaylists().stream()
                     .map(i -> playlistRepository.findById(i).orElse(null))

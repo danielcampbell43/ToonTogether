@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head lang="en">
     <meta charset="UTF-8"/>
     <title>My Profile</title>
@@ -27,6 +27,10 @@
 </form>
 
 <div class="container">
+    <!-- Success message section -->
+    <div th:if="${addedMessage}" class="alert alert-success">
+        <p th:text="${addedMessage}"></p>
+    </div>
     <div class="row">
         <!-- Users playlists -->
         <div class="col-md-6">
@@ -43,12 +47,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="playlist: ${playlists}">
+                    <tr th:each="playlist, iStat : ${playlists}">
                         <td class="td-no-wrap">
                             <a class="playlists" th:href="@{/myprofile/playlist/{id}(id=${playlist.id})}" th:text="${playlist.name}"></a>
                         </td>
                         <td class="td-no-wrap">
-                            <span sec:authentication="name"></span>
+                            <span th:text="${owners[iStat.index]}"></span>
                         </td>
                         <td class="td-no-wrap" th:text="${#dates.format(playlist.createdAt, 'dd MMM yyyy HH:mm:ss')}"></td>
                         <td>
@@ -68,6 +72,8 @@
                 <h3>Add a Song</h3>
                 <!-- Choose which playlist you want the song to be added to -->
                 <div class="form-container">
+
+
                     <form id="select-playlist-form" th:action="@{/addSong}" method="post">
                         <label for="playlist-select">Select Playlist:</label>
                         <select id="playlist-select" name="playlistId" class="form-control" required>
@@ -80,6 +86,7 @@
                         <button type="submit" class="btn btn-primary">Add Song</button>
                     </form>
                 </div>
+            </div>
         </div>
     </div>
 </div>
@@ -98,49 +105,45 @@
     </div>
 </div>
 
+<div th:replace="layout :: footer"></div>
 
-    <div th:replace="layout :: footer"></div>
+<!-- Playlist deletion confirmation message -->
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this playlist?");
+    }
+</script>
 
-    <!-- Playlist deletion confirmation message -->
-    <script>
-        function confirmDelete() {
-            return confirm("Are you sure you want to delete this playlist?");
-        }
-    </script>
-
-    <!-- Cloudinary image upload script -->
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            var postImageUploadWidget = cloudinary.createUploadWidget({
-                cloudName: 'toontogether',
-                uploadPreset: 'toontogether-unsigned',
-                folder: 'postImages',
-                cropping: true, // add a cropping step
-                croppingCoordinatesMode: 'custom',
-                multiple: false,  // restrict upload to a single file
-                singleUploadAutoClose: false,
-                clientAllowedFormats: ['jpg', 'png']
-            }, (error, result) => {
-                if (!error && result && result.event === "success") {
-                    console.log('Done! Here is the image info: ', result.info);
-                    // Set the image URL to the hidden input field
-                    document.getElementById("profilePicture").value = result.info.secure_url;
-                    document.getElementById("profile-picture-form").submit();
-                }
-            });
-
-            document.getElementById("post_image_upload_widget").addEventListener("click", function(){
-                postImageUploadWidget.open();
-            }, false);
+<!-- Cloudinary image upload script -->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        var postImageUploadWidget = cloudinary.createUploadWidget({
+            cloudName: 'toontogether',
+            uploadPreset: 'toontogether-unsigned',
+            folder: 'postImages',
+            cropping: true, // add a cropping step
+            croppingCoordinatesMode: 'custom',
+            multiple: false,  // restrict upload to a single file
+            singleUploadAutoClose: false,
+            clientAllowedFormats: ['jpg', 'png']
+        }, (error, result) => {
+            if (!error && result && result.event === "success") {
+                console.log('Done! Here is the image info: ', result.info);
+                // Set the image URL to the hidden input field
+                document.getElementById("profilePicture").value = result.info.secure_url;
+                document.getElementById("profile-picture-form").submit();
+            }
         });
-    </script>
+
+        document.getElementById("post_image_upload_widget").addEventListener("click", function(){
+            postImageUploadWidget.open();
+        }, false);
+    });
+</script>
 
 <!-- Bootstrap JS CDN (optional) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-

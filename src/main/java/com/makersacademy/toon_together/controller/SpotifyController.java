@@ -20,6 +20,7 @@ import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.specification.ArtistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import org.apache.hc.core5.http.ParseException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ public class SpotifyController {
     public RedirectView addSong(@RequestParam("songName") String songName,
                                 @RequestParam("playlistId") String playlistId,
                                 Model model,
+                                RedirectAttributes redirectAttributes,
                                 @RequestParam String returnURL) {
         try {
             Track track = spotifyService.searchTrackByName(songName);
@@ -82,7 +84,7 @@ public class SpotifyController {
 
             playlistSongRepository.save(playlistSong);
 
-
+            redirectAttributes.addFlashAttribute("addedMessage", "Song added successfully.");
 
             return new RedirectView(returnURL);
         } catch (IOException | SpotifyWebApiException | ParseException e) {

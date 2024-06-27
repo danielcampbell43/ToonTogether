@@ -65,7 +65,7 @@ public class User {
     }
 
     public List<Integer> getCollaboratorPlaylists() {
-        return userFavourites.stream()
+        return collaboratorPlaylists.stream()
                 .map(collaborator -> collaborator.getPlaylist().getId())
                 .collect(Collectors.toList());
     }
