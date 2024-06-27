@@ -119,6 +119,7 @@ html, body {
   background: rgba(255, 255, 255, 0.2);
   filter: blur(20px); /* Blurred shine effect */
   pointer-events: none;
+  z-index: -1;
 }
 
 
@@ -144,13 +145,14 @@ html, body {
 
 .terms-container h3 {
     font-size: 20px;
-    color: #212121;
+    color: grey;
     margin-top: 20px; /* Space above h3 */
 }
 
 .terms-container p {
     font-size: 16px;
     line-height: 1.6;
+    color: white;
 }
 
 /* Navbar brand and nav link styles */
@@ -337,3 +339,15 @@ html, body {
     border: none; /* Remove default border */
     box-shadow: none; /* Remove any box shadow */
 }
+
+/* Target a tags within the table */
+.table a {
+    color: black; /* Set link color to black */
+}
+
+/* Optional: Override default hover color if needed */
+.table a:hover {
+    color: black; /* Set hover link color to black */
+}
+
+
