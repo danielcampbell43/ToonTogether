@@ -58,17 +58,21 @@
 <!--    </form>-->
 <!--</div>-->
 
-<div class="container">
-    <div class="form-container">
-    <h2>Sign up</h2>
-    <form action="#" th:action="@{/users}" th:object="${user}" method="post">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" th:field="*{username}" id="username"/></p>
-        <label for="password">Password</label>
-        <input type="password" class="form-control" th:field="*{password}" id="password"/></p>
-        <button type="submit" class="btn btn-primary" value="Submit" id="submit">Submit</button>
-        <button type="reset" class="btn btn-secondary" value="Reset">Reset</button>
-    </form>
+<div class="container mt-4 profile-content">
+    <div class="row">
+        <div class="form col-12">
+            <div class="form-container">
+                <h2>Sign up</h2>
+                <form action="#" th:action="@{/users}" th:object="${user}" method="post">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" th:field="*{username}" id="username"/></p>
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" th:field="*{password}" id="password"/></p>
+                    <button type="submit" class="btn btn-primary" value="Submit" id="submit">Submit</button>
+                    <button type="reset" class="btn btn-secondary" value="Reset">Reset</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </body>
